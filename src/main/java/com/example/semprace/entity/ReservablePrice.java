@@ -17,7 +17,7 @@ public class ReservablePrice {
     private Long id;
 
     @ManyToOne(optional = false)
-    private Reservable type;
+    private ReservableType type;
 
     @Column(nullable = false)
     private Boolean weekDays;

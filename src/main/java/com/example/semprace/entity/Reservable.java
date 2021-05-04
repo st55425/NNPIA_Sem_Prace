@@ -20,14 +20,11 @@ public class Reservable {
     @Column(nullable = false, unique = true, length = 50)
     private String name;
 
-    @Column(nullable = false)
-    private boolean isCourt;
+    @ManyToOne(optional = false)
+    private ReservableType reservableType;
 
     @Column(nullable = false)
     private boolean available;
-
-    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReservablePrice> prices;
 
     @OneToMany(mappedBy = "reservable", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReservationItem> reservations;
