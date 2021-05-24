@@ -20,7 +20,9 @@ public class ReservableType {
     @Column(nullable = false, unique = true, length = 30)
     private String name;
 
-    @OneToMany(mappedBy = "reservable_type", cascade = CascadeType.ALL, orphanRemoval = true)
+    private boolean isCourt;
+
+    @OneToMany(mappedBy = "reservableType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservable> reservableList;
 
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = true)
