@@ -23,6 +23,6 @@ public class Reservation {
     @ManyToOne(optional = false)
     private User user;
 
-    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ReservationItem> reservationItems;
 }

@@ -22,9 +22,9 @@ public class ReservableType {
 
     private boolean isCourt;
 
-    @OneToMany(mappedBy = "reservableType", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "reservableType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Reservable> reservableList;
 
-    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ReservablePrice> prices;
 }

@@ -37,6 +37,6 @@ public class User {
     @Column(nullable = false)
     private Boolean isClubMember;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Reservation> reservation;
 }

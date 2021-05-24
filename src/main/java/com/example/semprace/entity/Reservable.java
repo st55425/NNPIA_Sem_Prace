@@ -26,6 +26,6 @@ public class Reservable {
     @Column(nullable = false)
     private boolean available;
 
-    @OneToMany(mappedBy = "reservable", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "reservable", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ReservationItem> reservations;
 }
