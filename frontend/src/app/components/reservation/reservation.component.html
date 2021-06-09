@@ -1,0 +1,10 @@
+<div [formGroup]="formGroup">
+  <h1>Rezervace sportovišť</h1>
+  <label for="courtSelector" >Vyberte sportoviště: </label>
+  <p-dropdown id="courtSelector" formControlName="court" [options]="courts" optionLabel="name"
+              optionValue="id"></p-dropdown>
+  <hr>
+  <p-button>Nová rezervace</p-button>
+  <app-reservation-calendar [events]="(reservations | async) ?? undefined"></app-reservation-calendar>
+</div>
+

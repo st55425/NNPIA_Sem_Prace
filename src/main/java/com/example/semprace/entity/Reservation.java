@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -17,12 +18,15 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Boolean confirmed;
-
     @ManyToOne(optional = false)
     private User user;
 
-    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<ReservationItem> reservationItems;
+    @Column(nullable = false)
+    private LocalDateTime timeFrom;
+
+    @Column(nullable = false)
+    private LocalDateTime timeTo;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Reservable reservable;
 }

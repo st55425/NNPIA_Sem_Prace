@@ -15,5 +15,5 @@ public class ReservationAnonymizedDto {
 
     private LocalDateTime timeTo;
 
-    private Reservable reservable;
+    private Long reservableId;
 }
