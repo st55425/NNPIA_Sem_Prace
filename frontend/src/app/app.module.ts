@@ -10,10 +10,16 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import {ButtonModule} from "primeng/button";
 import {FullCalendarModule} from "primeng/fullcalendar";
 import { ReservationComponent } from './components/reservation/reservation.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {DropdownModule} from "primeng/dropdown";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { LoginComponent } from './components/login/login.component';
+import {InputTextModule} from "primeng/inputtext";
+import {PasswordModule} from "primeng/password";
+import {AuthHtppInterceptorService} from "./services/auth-htpp-interceptor-service.service";
+import {MessageModule} from "primeng/message";
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +28,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     ReservationCalendarComponent,
     PageNotFoundComponent,
     ReservationComponent,
+    LoginComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,9 +40,14 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     HttpClientModule,
     ReactiveFormsModule,
     DropdownModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    InputTextModule,
+    PasswordModule,
+    MessageModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthHtppInterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

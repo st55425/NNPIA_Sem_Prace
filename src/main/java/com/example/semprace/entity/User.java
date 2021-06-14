@@ -1,16 +1,12 @@
 package com.example.semprace.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 public class User {
 
     @Id

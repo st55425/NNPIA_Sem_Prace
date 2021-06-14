@@ -4,7 +4,9 @@
   <p-dropdown id="courtSelector" formControlName="court" [options]="courts" optionLabel="name"
               optionValue="id"></p-dropdown>
   <hr>
-  <p-button>Nová rezervace</p-button>
+  <div *ngIf="authService.userLoggedInAsync | async">
+    <p-button>Nová rezervace</p-button>
+  </div>
   <app-reservation-calendar [events]="(reservations | async) ?? undefined"></app-reservation-calendar>
 </div>
 

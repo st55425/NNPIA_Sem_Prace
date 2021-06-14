@@ -5,6 +5,7 @@ import {ReservableService} from "../../services/reservable.service";
 import {Observable} from "rxjs";
 import {map, switchMap, tap} from "rxjs/operators";
 import {ReservationService} from "../../services/reservation.service";
+import {AuthenticationService} from "../../services/authentication-service.service";
 
 @Component({
   selector: 'app-reservation',
@@ -28,7 +29,8 @@ export class ReservationComponent implements OnInit {
 
 
   constructor(readonly reservableService: ReservableService, private fb: FormBuilder,
-              readonly reservationService: ReservationService) {
+              readonly reservationService: ReservationService,
+              readonly authService: AuthenticationService) {
     reservableService.getCourts().subscribe(courts => {
       this.courts = courts;
       this.formGroup.get('court')?.setValue(this.courts[0].id);

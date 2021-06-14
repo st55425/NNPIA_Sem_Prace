@@ -1,15 +1,11 @@
 package com.example.semprace.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 public class ReservablePrice {
 
     @Id
