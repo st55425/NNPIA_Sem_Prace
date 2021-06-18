@@ -1,0 +1,7 @@
+<h1>Plánované rezervace:</h1>
+<app-user-reservations-table [anonymizedReservations]="(futureReservations | async) ?? []"
+                             [deletable]="true"></app-user-reservations-table>
+
+<h1>Uskutečněné rezervace:</h1>
+<app-user-reservations-table [anonymizedReservations]="(pastReservations | async) ?? []"
+                             [deletable]="false"></app-user-reservations-table>

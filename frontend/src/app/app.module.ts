@@ -20,6 +20,11 @@ import {PasswordModule} from "primeng/password";
 import {AuthHtppInterceptorService} from "./services/auth-htpp-interceptor-service.service";
 import {MessageModule} from "primeng/message";
 import { LogoutComponent } from './components/logout/logout.component';
+import { PricelistComponent } from './components/pricelist/pricelist.component';
+import {TableModule} from "primeng/table";
+import { UserReservationsComponent } from './components/user-reservations/user-reservations.component';
+import { UserReservationsTableComponent } from './components/user-reservations-table/user-reservations-table.component';
+import {RippleModule} from "primeng/ripple";
 
 @NgModule({
   declarations: [
@@ -30,6 +35,9 @@ import { LogoutComponent } from './components/logout/logout.component';
     ReservationComponent,
     LoginComponent,
     LogoutComponent,
+    PricelistComponent,
+    UserReservationsComponent,
+    UserReservationsTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +51,9 @@ import { LogoutComponent } from './components/logout/logout.component';
     BrowserAnimationsModule,
     InputTextModule,
     PasswordModule,
-    MessageModule
+    MessageModule,
+    TableModule,
+    RippleModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthHtppInterceptorService, multi: true}

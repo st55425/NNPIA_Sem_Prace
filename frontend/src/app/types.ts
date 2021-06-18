@@ -4,13 +4,19 @@ export interface Court {
 }
 
 export interface AnonymizedReservation{
+  id: number
   timeFrom: Date,
   timeTo: Date,
-  reservationId: number
+  reservableName: string
 }
 
 export interface CalendarData{
   title: string,
   start: Date,
   end: Date
+}
+
+export interface TableColumnsDefinition{
+  field: string,
+  header: string
 }

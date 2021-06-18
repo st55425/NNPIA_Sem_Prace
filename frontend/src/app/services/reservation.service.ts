@@ -12,6 +12,18 @@ export class ReservationService {
   constructor(readonly http: HttpClient) { }
 
   getAnonymizedReservationsByCourt(id: number){
-    return this.http.get<AnonymizedReservation[]>(`${this.reservationsUrl}/${id}`);
+    return this.http.get<AnonymizedReservation[]>(`${this.reservationsUrl}/anonym/${id}`);
+  }
+
+  getFutureUserReservations(username: string){
+    return this.http.get<AnonymizedReservation[]>(`${this.reservationsUrl}/future/${username}`);
+  }
+
+  getPastUserReservations(username: string){
+    return this.http.get<AnonymizedReservation[]>(`${this.reservationsUrl}/past/${username}`);
+  }
+
+  deleteReservation(id: number){
+    this.http.delete(`${this.reservationsUrl}/${id}`).subscribe();
   }
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Data
@@ -17,10 +18,10 @@ public class Reservation {
     private User user;
 
     @Column(nullable = false)
-    private LocalDateTime timeFrom;
+    private ZonedDateTime timeFrom;
 
     @Column(nullable = false)
-    private LocalDateTime timeTo;
+    private ZonedDateTime timeTo;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Reservable reservable;

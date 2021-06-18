@@ -1,13 +1,15 @@
 package com.example.semprace.service;
 
-import com.example.semprace.dto.ReservationAnonymizedDto;
+import com.example.semprace.entity.Reservation;
+import com.example.semprace.entity.User;
 import com.example.semprace.repository.ReservationRepository;
+import com.example.semprace.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -16,10 +18,30 @@ public class ReservationServiceImpl {
 
     private final ReservationRepository reservationRepository;
 
+    private final UserRepository userRepository;
 
-    public List<ReservationAnonymizedDto> findAnonymizedDtoByCourt(long courtId){
-        return reservationRepository.findAllByReservable(courtId).stream().
-                map(res -> new ReservationAnonymizedDto(res.getTimeFrom(), res.getTimeTo(), res.getReservable().getId())).
-                collect(Collectors.toList());
+
+    public List<Reservation> findAnonymizedDtoByCourt(long courtId){
+        return reservationRepository.findAllByReservable(courtId);
+    }
+
+    public List<Reservation> findFutureReservationsByUser(String username){
+        User user = userRepository.findByUsername(username);
+        return reservationRepository.findAllByUserAndTimeFromAfterOrderByTimeFrom(user, ZonedDateTime.now());
+    }
+
+    public List<Reservation> findPastReservationsByUser(String username){
+        User user = userRepository.findByUsername(username);
+        return reservationRepository.findAllByUserAndTimeFromBeforeOrderByTimeFrom(user, ZonedDateTime.now());
+    }
+
+    public Reservation fingById(long reservationId){
+        return reservationRepository.findById(reservationId).orElseThrow();
+    }
+
+    public void deleteReservation(long reservationId){
+        reservationRepository.deleteById(reservationId);
+        var t = reservationRepository.findAll();
+        System.out.println("a");
     }
 }

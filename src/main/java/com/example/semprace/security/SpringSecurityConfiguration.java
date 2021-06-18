@@ -48,9 +48,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 // dont authenticate this particular request
                 .antMatchers("/authenticate", "/courts").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/reservations/**").permitAll()
+                .antMatchers("/reservations/anonym/**").permitAll()
                 // all other requests need to be authenticated
                 // use .hasAuthority("STH")
+                .antMatchers("/reservations/**").hasAuthority("USER")
                 .anyRequest().authenticated().and()
                 // make sure we use stateless session; session won't be used to
                 // store user's state.

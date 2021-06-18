@@ -11,7 +11,8 @@ insert into user(blocked, first_name, is_club_member, password, role, surname, u
 VALUES (false, 'Test', true, '$2a$10$KzqnXd1Vk66jzDvqfaleHuGGWw5ZFkzw0s9H6V2irGx7kDQVtahyS
 ', 'ADMIN', 'Admin', 'admin');
 
-insert into reservable_type(name, is_court) values ('tenisový kurt', true);
+insert into reservable_type(is_court, name, open_from, open_to) values (true, 'tenisový kurt', '2021-06-14 08:00:00', '2021-06-14 22:00:00');
+insert into reservable_type(is_court, name, open_from, open_to) values (true, 'bedmintonový kurt', '2021-06-14 08:00:00', '2021-06-14 22:00:00');
 
 insert into reservable(available, name, reservable_type_id) VALUES (true, 'Centr kurt', 1);
 insert into reservable(available, name, reservable_type_id) VALUES (true, 'Kurt 1', 1);
@@ -24,3 +25,16 @@ insert into reservation(time_from, time_to, reservable_id, user_id)
 VALUES ('2021-6-10 10:00:00', '2021-6-10 12:00:00', 1, 1);
 insert into reservation(time_from, time_to, reservable_id, user_id)
 VALUES ('2021-6-9 10:00:00', '2021-6-9 12:00:00', 1, 1);
+
+insert into reservable_price(price, time_from, time_to, week_days, weekends_and_holidays, type_id)
+VALUES (50, '2021-06-14 08:00:00', '2021-06-14 14:00:00', true, false, 1);
+insert into reservable_price(price, time_from, time_to, week_days, weekends_and_holidays, type_id)
+VALUES (100, '2021-06-14 14:00:00', '2021-06-14 22:00:00', true, false, 1);
+insert into reservable_price(price, time_from, time_to, week_days, weekends_and_holidays, type_id)
+VALUES (50, '2021-06-14 08:00:00', '2021-06-14 22:00:00', false, true, 1);
+insert into reservable_price(price, time_from, time_to, week_days, weekends_and_holidays, type_id)
+VALUES (50, '2021-06-14 08:00:00', '2021-06-14 14:00:00', true, false, 2);
+insert into reservable_price(price, time_from, time_to, week_days, weekends_and_holidays, type_id)
+VALUES (100, '2021-06-14 14:00:00', '2021-06-14 22:00:00', true, false, 2);
+insert into reservable_price(price, time_from, time_to, week_days, weekends_and_holidays, type_id)
+VALUES (50, '2021-06-14 08:00:00', '2021-06-14 22:00:00', false, true, 2);

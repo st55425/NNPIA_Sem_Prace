@@ -17,10 +17,10 @@ export interface JwtResponse{
 })
 export class AuthenticationService {
 
-  roleSubject = new BehaviorSubject('');
+  roleSubject = new BehaviorSubject(sessionStorage.getItem('role'));
   roleAsync = this.roleSubject.asObservable();
 
-  usernameSubject = new BehaviorSubject('');
+  usernameSubject = new BehaviorSubject(sessionStorage.getItem('username'));
   usernameAsync = this.usernameSubject.asObservable();
   userLoggedInAsync = this.usernameAsync.pipe(map(username => username !== ''));
 

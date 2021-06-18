@@ -17,13 +17,11 @@ public class ReservableServiceImpl {
 
     private final ReservableRepository reservableRepository;
 
-    public List<CourtDto> getAllCourts(){
-        return reservableRepository.findAllCourts().stream().
-                map(res -> new CourtDto(res.getId(), res.getName())).collect(Collectors.toList());
+    public List<Reservable> getAllCourts(){
+        return reservableRepository.findAllCourts();
     }
 
-    public CourtDto getCourtById(long id){
-        Reservable res = reservableRepository.findById(id).orElseThrow();
-        return new CourtDto(res.getId(), res.getName());
+    public Reservable getCourtById(long id){
+        return reservableRepository.findById(id).orElseThrow();
     }
 }

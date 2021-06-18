@@ -3,6 +3,7 @@ package com.example.semprace.dto;
 import com.example.semprace.entity.Reservable;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -11,9 +12,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ReservationAnonymizedDto {
 
-    private LocalDateTime timeFrom;
+    private long id;
 
-    private LocalDateTime timeTo;
+    private ZonedDateTime timeFrom;
 
-    private Long reservableId;
+    private ZonedDateTime timeTo;
+
+    private String reservableName;
 }

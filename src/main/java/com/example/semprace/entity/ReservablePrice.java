@@ -3,6 +3,8 @@ package com.example.semprace.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 
 @Entity
 @Data
@@ -22,14 +24,11 @@ public class ReservablePrice {
     private Boolean weekendsAndHolidays;
 
     @Column(nullable = false)
-    private Boolean clubMember;
+    private ZonedDateTime timeFrom;
 
     @Column(nullable = false)
-    private Double timeFrom;
+    private ZonedDateTime timeTo;
 
     @Column(nullable = false)
-    private Double timeTo;
-
-    @Column(nullable = false)
-    private Double price;
+    private BigDecimal price;
 }
