@@ -52,6 +52,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 // all other requests need to be authenticated
                 // use .hasAuthority("STH")
                 .antMatchers("/reservations/**").hasAuthority("USER")
+                .antMatchers("/reservabletypes/courts").hasAuthority("ADMIN")
                 .anyRequest().authenticated().and()
                 // make sure we use stateless session; session won't be used to
                 // store user's state.

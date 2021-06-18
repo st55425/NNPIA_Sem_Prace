@@ -15,32 +15,28 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.roleAsync.subscribe(role =>{
+      this.items = [
+        {label: 'Rezervace', routerLink: "/rezervace"},
+        {label: 'Ceník', routerLink: "/cenik"},
+      ];
       if (role === ''){
-        this.items = [
-          {label: 'Rezervace', routerLink: "/rezervace"},
-          {label: 'Ceník', routerLink: "/cenik"},
+        this.items = [...this.items,
           {label: 'Log in', routerLink: "/login"},
         ];
       }
       else if (role === 'USER'){
-        this.items = [
-          {label: 'Rezervace', routerLink: "/rezervace"},
-          {label: 'Ceník', routerLink: "/cenik"},
+        this.items = [...this.items,
           {label: 'Logout', routerLink: "/logout"},
           {label: 'Moje rezervace', routerLink: '/mojerezervace'},
         ];
       }
       else if (role === 'STAFF'){
-        this.items = [
-          {label: 'Rezervace', routerLink: "/rezervace"},
-          {label: 'Ceník', routerLink: "/cenik"},
+        this.items = [...this.items,
           {label: 'Logout', routerLink: "/logout"},
         ];
       }
       else {
-        this.items = [
-          {label: 'Rezervace', routerLink: "/rezervace"},
-          {label: 'Ceník', routerLink: "/cenik"},
+        this.items = [...this.items,
           {label: 'Logout', routerLink: "/logout"},
           {label: 'Přehled sportovišť', routerLink: '/sportoviste'},
         ];

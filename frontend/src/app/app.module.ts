@@ -25,6 +25,7 @@ import {TableModule} from "primeng/table";
 import { UserReservationsComponent } from './components/user-reservations/user-reservations.component';
 import { UserReservationsTableComponent } from './components/user-reservations-table/user-reservations-table.component';
 import {RippleModule} from "primeng/ripple";
+import { CourtManagementComponent } from './components/court-management/court-management.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {RippleModule} from "primeng/ripple";
     PricelistComponent,
     UserReservationsComponent,
     UserReservationsTableComponent,
+    CourtManagementComponent,
   ],
   imports: [
     BrowserModule,

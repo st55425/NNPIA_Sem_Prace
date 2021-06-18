@@ -11,4 +11,6 @@ public class CourtDto {
 
     private String name;
 
+    private boolean available;
+
 }

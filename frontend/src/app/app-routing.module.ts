@@ -7,6 +7,7 @@ import {AuthGaurdService} from "./services/auth-guard/auth-gaurd.service";
 import {LogoutComponent} from "./components/logout/logout.component";
 import {UserReservationsComponent} from "./components/user-reservations/user-reservations.component";
 import {PricelistComponent} from "./components/pricelist/pricelist.component";
+import {CourtManagementComponent} from "./components/court-management/court-management.component";
 
 const routes: Routes = [
   {path: 'rezervace', component: ReservationComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'cenik', component: PricelistComponent},
   {path: 'logout', component: LogoutComponent},
   {path: 'mojerezervace', component: UserReservationsComponent, canActivate: [AuthGaurdService]},
+  {path: 'sportoviste', component: CourtManagementComponent, canActivate: [AuthGaurdService]},
   {path: '',   component: ReservationComponent, pathMatch: 'full' },
   {path: '**', component: PageNotFoundComponent }
 ];

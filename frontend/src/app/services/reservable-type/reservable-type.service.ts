@@ -14,4 +14,8 @@ export class ReservableTypeService {
   getReservableTypesWithPrices(){
     return this.http.get<ReservableType[]>(`${this.reservableTypeUrl}/prices`);
   }
+
+  getReservableTypesWithCourts(){
+    return this.http.get<ReservableType[]>(`${this.reservableTypeUrl}/courts`);
+  }
 }

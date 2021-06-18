@@ -16,10 +16,8 @@ public class ReservableTypeServiceImpl {
 
     private final ReservableTypeRepository reservableTypeRepository;
 
-    public List<ReservableType> findAllTypesWithPrices(){
-        List<ReservableType> types = reservableTypeRepository.findAll();
-        types.forEach(a -> Hibernate.initialize(a.getPrices()));
-        return types;
+    public List<ReservableType> findAllTypes(){
+        return reservableTypeRepository.findAll();
     }
 
 }

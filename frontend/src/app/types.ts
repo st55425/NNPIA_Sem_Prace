@@ -1,6 +1,7 @@
 export interface Court {
-  id: number
-  name: string
+  id: number,
+  name: string,
+  available: boolean
 }
 
 export interface AnonymizedReservation{
@@ -31,4 +32,5 @@ export interface ReservableType{
   openFrom: Date,
   openTo: Date,
   prices?: ReservablePrice[]
+  reservableList?: Court[]
 }

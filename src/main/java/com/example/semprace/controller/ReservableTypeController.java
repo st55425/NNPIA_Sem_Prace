@@ -1,6 +1,7 @@
 package com.example.semprace.controller;
 
 import com.example.semprace.dto.ReservableTypePricesDto;
+import com.example.semprace.dto.ReservableTypesCourtsDto;
 import com.example.semprace.dto.ReservationAnonymizedDto;
 import com.example.semprace.entity.ReservableType;
 import com.example.semprace.entity.Reservation;
@@ -25,12 +26,21 @@ public class ReservableTypeController {
 
     @GetMapping("/reservabletypes/prices")
     public List<ReservableTypePricesDto> findAllTypesWithPrices(){
-        return reservableTypeService.findAllTypesWithPrices().stream().
-                map(this::convertToDto).collect(Collectors.toList());
+        return reservableTypeService.findAllTypes().stream().
+                map(this::convertToPricesDto).collect(Collectors.toList());
     }
 
-    private ReservableTypePricesDto convertToDto(ReservableType reservableType){
+    @GetMapping("/reservabletypes/courts")
+    public List<ReservableTypesCourtsDto> findAllTypesWithCourts(){
+        return reservableTypeService.findAllTypes().stream().
+                map(this::convertToCourtsDto).collect(Collectors.toList());
+    }
+
+    private ReservableTypePricesDto convertToPricesDto(ReservableType reservableType){
         return modelMapper.map(reservableType, ReservableTypePricesDto.class);
     }
 
+    private ReservableTypesCourtsDto convertToCourtsDto(ReservableType reservableType){
+        return modelMapper.map(reservableType, ReservableTypesCourtsDto.class);
+    }
 }
