@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AnonymizedReservation} from "../../types";
-import {ReservationService} from "../../services/reservation.service";
+import {ReservationService} from "../../services/reservation/reservation.service";
 import {MessageService} from "primeng/api";
 
 @Component({
@@ -35,6 +35,7 @@ export class UserReservationsTableComponent implements OnInit {
 
   deleteReservation(reservation: AnonymizedReservation){
     this.anonymizedReservations = this.anonymizedReservations.filter((p) => p.id !== reservation.id);
+    //TODO zobrazit
     this.messageService.add({severity: 'danger', summary: 'Rezervace odstraněna', detail:
         `Rezervace na kurt ${reservation.reservableName} v čase od ${reservation.timeFrom}
         do ${reservation.timeTo} byla odstraněna`});

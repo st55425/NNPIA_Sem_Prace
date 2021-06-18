@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {AnonymizedReservation, Court} from "../types";
+import {AnonymizedReservation} from "../../types";
 
 @Injectable({
   providedIn: 'root'

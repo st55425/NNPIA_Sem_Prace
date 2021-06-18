@@ -2,9 +2,7 @@ package com.example.semprace.dto;
 
 import lombok.*;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourtDto {

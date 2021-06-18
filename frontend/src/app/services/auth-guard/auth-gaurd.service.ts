@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import {AuthenticationService} from "./authentication-service.service";
+import {AuthenticationService} from "../authentication/authentication.service";
 
 //TODO přepsat na jednotlivé role
 @Injectable({

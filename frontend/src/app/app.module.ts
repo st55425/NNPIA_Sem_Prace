@@ -17,7 +17,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { LoginComponent } from './components/login/login.component';
 import {InputTextModule} from "primeng/inputtext";
 import {PasswordModule} from "primeng/password";
-import {AuthHtppInterceptorService} from "./services/auth-htpp-interceptor-service.service";
+import {AuthHtppInterceptorService} from "./services/auth-http-interceptor/auth-htpp-interceptor.service";
 import {MessageModule} from "primeng/message";
 import { LogoutComponent } from './components/logout/logout.component';
 import { PricelistComponent } from './components/pricelist/pricelist.component';

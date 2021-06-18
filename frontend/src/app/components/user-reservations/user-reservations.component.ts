@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ReservationService} from "../../services/reservation.service";
+import {ReservationService} from "../../services/reservation/reservation.service";
 import {Observable} from "rxjs";
 import {AnonymizedReservation} from "../../types";
 
@@ -12,17 +12,17 @@ export class UserReservationsComponent implements OnInit {
 
   username: string;
 
-  futureReservations: Observable<AnonymizedReservation[]>;
+  futureReservations!: AnonymizedReservation[];
 
-  pastReservations: Observable<AnonymizedReservation[]>;
+  pastReservations!: AnonymizedReservation[];
 
   constructor(readonly reservationService: ReservationService) {
     this.username = sessionStorage.getItem('username') ?? "";
-    this.futureReservations = reservationService.getFutureUserReservations(this.username);
-    this.pastReservations = reservationService.getPastUserReservations(this.username);
   }
 
   ngOnInit(): void {
+    this.reservationService.getFutureUserReservations(this.username).subscribe(data => this.futureReservations = data);
+    this.reservationService.getPastUserReservations(this.username).subscribe(data => this.pastReservations = data);
   }
 
 }

@@ -46,9 +46,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
         // We don't need CSRF for this example
         httpSecurity.csrf().disable().authorizeRequests()
                 // dont authenticate this particular request
-                .antMatchers("/authenticate", "/courts").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers("/authenticate", "/courts", "/reservabletypes/prices").permitAll()
                 .antMatchers("/reservations/anonym/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // all other requests need to be authenticated
                 // use .hasAuthority("STH")
                 .antMatchers("/reservations/**").hasAuthority("USER")

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl} from "@angular/forms";
-import {AnonymizedReservation, CalendarData, Court} from "../../types";
-import {ReservableService} from "../../services/reservable.service";
+import {CalendarData, Court} from "../../types";
+import {ReservableService} from "../../services/reservable/reservable.service";
 import {Observable} from "rxjs";
 import {map, switchMap, tap} from "rxjs/operators";
-import {ReservationService} from "../../services/reservation.service";
-import {AuthenticationService} from "../../services/authentication-service.service";
+import {ReservationService} from "../../services/reservation/reservation.service";
+import {AuthenticationService} from "../../services/authentication/authentication.service";
 
 @Component({
   selector: 'app-reservation',
@@ -22,10 +22,7 @@ export class ReservationComponent implements OnInit {
     court: this.courtCtrl
   })
 
-  reservations: Observable<CalendarData[]> = this.courtCtrl.valueChanges.pipe(
-    switchMap(a => this.reservationService.getAnonymizedReservationsByCourt(a)),
-    map(a => a.map(e => ({title: 'obsazeno', start: e.timeFrom, end: e.timeTo})))
-    );
+  reservations!: CalendarData[];
 
 
   constructor(readonly reservableService: ReservableService, private fb: FormBuilder,
@@ -39,6 +36,10 @@ export class ReservationComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.courtCtrl.valueChanges.pipe(
+      switchMap(a => this.reservationService.getAnonymizedReservationsByCourt(a)),
+      map(a => a.map(e => ({title: 'obsazeno', start: e.timeFrom, end: e.timeTo})))
+    ).subscribe(data => this.reservations = data);
   }
 
 }

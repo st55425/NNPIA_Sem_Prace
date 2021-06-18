@@ -16,7 +16,19 @@ export interface CalendarData{
   end: Date
 }
 
-export interface TableColumnsDefinition{
-  field: string,
-  header: string
+export interface ReservablePrice{
+  id: number,
+  weekDays: boolean,
+  weekendsAndHolidays: boolean,
+  timeFrom: Date,
+  timeTo: Date,
+  price: number
+}
+
+export interface ReservableType{
+  id: number,
+  name: string,
+  openFrom: Date,
+  openTo: Date,
+  prices?: ReservablePrice[]
 }

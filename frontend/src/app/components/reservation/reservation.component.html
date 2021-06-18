@@ -7,6 +7,6 @@
   <div *ngIf="authService.userLoggedInAsync | async">
     <p-button>Nová rezervace</p-button>
   </div>
-  <app-reservation-calendar [events]="(reservations | async) ?? undefined"></app-reservation-calendar>
+  <app-reservation-calendar [events]="reservations"></app-reservation-calendar>
 </div>
 
