@@ -12,6 +12,7 @@ export interface AnonymizedReservation{
 }
 
 export interface CalendarData{
+  id: number,
   title: string,
   start: Date,
   end: Date

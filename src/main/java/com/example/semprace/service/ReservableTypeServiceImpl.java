@@ -20,4 +20,8 @@ public class ReservableTypeServiceImpl {
         return reservableTypeRepository.findAll();
     }
 
+    public void deleteById(long id){
+        reservableTypeRepository.deleteById(id);
+    }
+
 }

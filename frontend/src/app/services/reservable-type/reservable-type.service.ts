@@ -18,4 +18,12 @@ export class ReservableTypeService {
   getReservableTypesWithCourts(){
     return this.http.get<ReservableType[]>(`${this.reservableTypeUrl}/courts`);
   }
+
+  getReservableTypes(){
+    return this.http.get<ReservableType[]>(`${this.reservableTypeUrl}`);
+  }
+
+  deleteReservableType(id: number){
+    this.http.delete(`${this.reservableTypeUrl}/${id}`).subscribe();
+  }
 }

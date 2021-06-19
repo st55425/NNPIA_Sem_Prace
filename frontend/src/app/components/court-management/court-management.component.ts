@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Court, ReservableType} from "../../types";
 import {ReservableTypeService} from "../../services/reservable-type/reservable-type.service";
+import {ReservableService} from "../../services/reservable/reservable.service";
 
 @Component({
   selector: 'app-court-management',
@@ -13,7 +14,8 @@ export class CourtManagementComponent implements OnInit {
 
   cols: any[];
 
-  constructor(private readonly reservableTypeService: ReservableTypeService) {
+  constructor(private readonly reservableTypeService: ReservableTypeService,
+              private readonly reservableService: ReservableService) {
     this.cols = [
       {field: 'expand', header: ''},
       { field: 'name', header: 'Typ Sportoviště'},
@@ -32,13 +34,15 @@ export class CourtManagementComponent implements OnInit {
   }
 
   deleteReservableType(reservableType: ReservableType) {
-
+    this.reservableTypeService.deleteReservableType(reservableType.id);
+    this.reservableTypes = this.reservableTypes.filter((p) => p.id !== reservableType.id);
   }
 
   editCourt(court: Court) {
 
   }
   deleteCourt(court: Court) {
-
+    this.reservableService.deleteCourt(court.id);
+    this.reservableTypes.find(a =>a.reservableList = a.reservableList?.filter((p) => p.id !== court.id));
   }
 }

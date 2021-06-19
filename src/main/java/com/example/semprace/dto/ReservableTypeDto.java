@@ -5,12 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservableTypesCourtsDto {
+public class ReservableTypeDto {
 
     private Long id;
 
@@ -19,6 +18,4 @@ public class ReservableTypesCourtsDto {
     private ZonedDateTime openFrom;
 
     private ZonedDateTime openTo;
-
-    private List<CourtDto> reservableList;
 }

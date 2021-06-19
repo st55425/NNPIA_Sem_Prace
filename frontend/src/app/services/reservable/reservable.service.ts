@@ -15,7 +15,11 @@ export class ReservableService {
     return this.http.get<Court[]>(this.courtsUrl);
   }
 
-  getCourtById(id: number){
-    return this.http.get<Court>(`${this.courtsUrl}/${id}`);
+  getCourtsByTypeId(id: number){
+    return this.http.get<Court[]>(`${this.courtsUrl}/types/${id}`);
+  }
+
+  deleteCourt(id: number){
+    this.http.delete(`${this.courtsUrl}/${id}`).subscribe();
   }
 }

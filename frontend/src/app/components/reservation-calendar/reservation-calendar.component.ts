@@ -38,6 +38,7 @@ export class ReservationCalendarComponent implements OnInit {
       eventClick: (info: any) => {
         //více viz: https://fullcalendar.io/docs/v4/eventClick
         console.log('Event: ' + info.event.title);
+        console.log('Id: ' + info.event.id);
         console.log('View: ' + info.view.type);
     }
     };

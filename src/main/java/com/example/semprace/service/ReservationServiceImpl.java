@@ -41,7 +41,5 @@ public class ReservationServiceImpl {
 
     public void deleteReservation(long reservationId){
         reservationRepository.deleteById(reservationId);
-        var t = reservationRepository.findAll();
-        System.out.println("a");
     }
 }

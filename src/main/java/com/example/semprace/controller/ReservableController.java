@@ -5,10 +5,7 @@ import com.example.semprace.entity.Reservable;
 import com.example.semprace.service.ReservableServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
@@ -26,7 +23,6 @@ public class ReservableController {
 
     @GetMapping("/courts")
     public List<CourtDto> getCourts(){
-
         List<Reservable> courts = service.getAllCourts();
         return courts.stream().map(this::convertToDto).collect(Collectors.toList());
     }
@@ -34,6 +30,17 @@ public class ReservableController {
     @GetMapping("/courts/{id}")
     public CourtDto getCourtById(@PathVariable long id){
         return convertToDto(service.getCourtById(id));
+    }
+
+    @GetMapping("/courts/types/{typeId}")
+    public List<CourtDto>getCourtsByType(@PathVariable long typeId){
+        List<Reservable> courts = service.getCourtsByType(typeId);
+        return courts.stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    @DeleteMapping("/courts/{id}")
+    public void deleteCourtById(@PathVariable long id){
+        service.deleteById(id);
     }
 
     private CourtDto convertToDto(Reservable reservable){
