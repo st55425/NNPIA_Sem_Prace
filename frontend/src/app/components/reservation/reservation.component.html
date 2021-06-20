@@ -8,7 +8,7 @@
               optionValue="id"></p-dropdown>
   <hr>
   <div *ngIf="authService.userLoggedInAsync | async">
-    <p-button>Nová rezervace</p-button>
+    <p-button (onClick)="newReservation()">Nová rezervace</p-button>
   </div>
   <app-reservation-calendar [events]="reservations"></app-reservation-calendar>
 </div>

@@ -35,3 +35,27 @@ export interface ReservableType{
   prices?: ReservablePrice[]
   reservableList?: Court[]
 }
+
+export interface NewReservation {
+  reservableType?: number,
+  court?: number,
+  username?: string,
+  date?: Date,
+  timeFrom?: Date,
+  timeTo?: Date
+}
+
+export interface Reservation{
+  id?: number
+  timeFrom: Date,
+  timeTo: Date,
+  reservableId: number,
+  userName: string
+}
+
+export interface User{
+  id: number,
+  username: string,
+  firstName: string,
+  surname: string
+}

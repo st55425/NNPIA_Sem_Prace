@@ -1,6 +1,7 @@
 package com.example.semprace.repository;
 
 import com.example.semprace.dto.ReservationAnonymizedDto;
+import com.example.semprace.entity.Reservable;
 import com.example.semprace.entity.Reservation;
 import com.example.semprace.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     where res.reservable.id =:reservableId 
     """)
     List<Reservation> findAllByReservable(long reservableId);
+
+    List<Reservation> findAllByReservableAndTimeFromBetweenAndTimeToBetween(Reservable reservable,
+                                                                            ZonedDateTime fromTimeFrom, ZonedDateTime toTimeFrom,
+                                                                            ZonedDateTime fromTimeTo, ZonedDateTime toTimeTo);
 }

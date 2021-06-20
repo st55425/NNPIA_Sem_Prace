@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {AnonymizedReservation} from "../../types";
+import {AnonymizedReservation, Reservation} from "../../types";
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +25,10 @@ export class ReservationService {
 
   deleteReservation(id: number){
     this.http.delete(`${this.reservationsUrl}/${id}`).subscribe();
+  }
+
+  createReservation(reservation: Reservation){
+    const headers = { 'content-type': 'application/json'};
+    return this.http.post<Reservation>(this.reservationsUrl, JSON.stringify(reservation),{'headers':headers});
   }
 }

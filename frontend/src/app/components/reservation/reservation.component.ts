@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl} from "@angular/forms";
-import {CalendarData, Court, ReservableType} from "../../types";
+import {CalendarData, Court, ReservableType, Reservation} from "../../types";
 import {ReservableService} from "../../services/reservable/reservable.service";
 import {Observable} from "rxjs";
 import {map, switchMap, tap} from "rxjs/operators";
 import {ReservationService} from "../../services/reservation/reservation.service";
 import {AuthenticationService} from "../../services/authentication/authentication.service";
 import {ReservableTypeService} from "../../services/reservable-type/reservable-type.service";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {NewReservationFormComponent} from "../new-reservation-form/new-reservation-form.component";
 
 @Component({
   selector: 'app-reservation',
   templateUrl: './reservation.component.html',
-  styleUrls: ['./reservation.component.css']
+  styleUrls: ['./reservation.component.css'],
+  providers: [DialogService]
 })
-export class ReservationComponent implements OnInit {
+export class ReservationComponent implements OnInit, OnDestroy {
 
   typeCtrl = new FormControl();
   courtCtrl = new FormControl();
@@ -28,11 +31,14 @@ export class ReservationComponent implements OnInit {
 
   reservations!: CalendarData[];
 
+  ref?: DynamicDialogRef;
+
 
   constructor(readonly reservableService: ReservableService, private fb: FormBuilder,
               readonly reservationService: ReservationService,
               readonly authService: AuthenticationService,
-              readonly reservableTypeService: ReservableTypeService) {
+              readonly reservableTypeService: ReservableTypeService,
+              readonly dialogService: DialogService) {
 
     this.reservableTypeService.getReservableTypes().subscribe(types => {
       this.types = types;
@@ -48,6 +54,12 @@ export class ReservationComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.ref) {
+      this.ref.close();
+    }
+  }
+
 
   ngOnInit(): void {
     this.courtCtrl.valueChanges.pipe(
@@ -56,4 +68,20 @@ export class ReservationComponent implements OnInit {
     ).subscribe(data => this.reservations = data);
   }
 
+  newReservation() {
+    this.ref = this.dialogService.open(NewReservationFormComponent, {
+      header: 'Nová rezervace',
+      width: '70%',
+      contentStyle: {"height": "1000px", "overflow": "auto"},
+      data: {
+        court: this.courts[0]
+      }
+    })
+
+    this.ref.onClose.subscribe((res: Reservation) =>{
+      if (this.courtCtrl.value == res?.reservableId){
+        this.reservations = [...this.reservations, {id: res.id ?? 0, title: 'obsazeno', start: res.timeFrom, end: res.timeTo}]
+      }
+    });
+  }
 }

@@ -4,10 +4,6 @@ import {filter, map, tap} from 'rxjs/operators';
 import jwt_decode from "jwt-decode";
 import {BehaviorSubject, fromEvent, of} from "rxjs";
 
-export interface User{
-  jwttoken: string
-}
-
 export interface JwtResponse{
   jwttoken: string
 }
@@ -17,10 +13,10 @@ export interface JwtResponse{
 })
 export class AuthenticationService {
 
-  roleSubject = new BehaviorSubject(sessionStorage.getItem('role'));
+  roleSubject = new BehaviorSubject(sessionStorage.getItem('role') ?? '');
   roleAsync = this.roleSubject.asObservable();
 
-  usernameSubject = new BehaviorSubject(sessionStorage.getItem('username'));
+  usernameSubject = new BehaviorSubject(sessionStorage.getItem('username') ?? '');
   usernameAsync = this.usernameSubject.asObservable();
   userLoggedInAsync = this.usernameAsync.pipe(map(username => username !== ''));
 
