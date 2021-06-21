@@ -16,7 +16,7 @@ import {NewReservationFormComponent} from "../new-reservation-form/new-reservati
   styleUrls: ['./reservation.component.css'],
   providers: [DialogService]
 })
-export class ReservationComponent implements OnInit, OnDestroy {
+export class ReservationComponent implements OnInit {
 
   typeCtrl = new FormControl();
   courtCtrl = new FormControl();
@@ -30,9 +30,6 @@ export class ReservationComponent implements OnInit, OnDestroy {
   })
 
   reservations!: CalendarData[];
-
-  ref?: DynamicDialogRef;
-
 
   constructor(readonly reservableService: ReservableService, private fb: FormBuilder,
               readonly reservationService: ReservationService,
@@ -54,13 +51,6 @@ export class ReservationComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    if (this.ref) {
-      this.ref.close();
-    }
-  }
-
-
   ngOnInit(): void {
     this.courtCtrl.valueChanges.pipe(
       switchMap(a => this.reservationService.getAnonymizedReservationsByCourt(a)),
@@ -69,7 +59,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
   }
 
   newReservation() {
-    this.ref = this.dialogService.open(NewReservationFormComponent, {
+    const ref = this.dialogService.open(NewReservationFormComponent, {
       header: 'Nová rezervace',
       width: '70%',
       contentStyle: {"height": "1000px", "overflow": "auto"},
@@ -78,7 +68,7 @@ export class ReservationComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.ref.onClose.subscribe((res: Reservation) =>{
+    ref.onClose.subscribe((res: Reservation) =>{
       if (this.courtCtrl.value == res?.reservableId){
         this.reservations = [...this.reservations, {id: res.id ?? 0, title: 'obsazeno', start: res.timeFrom, end: res.timeTo}]
       }

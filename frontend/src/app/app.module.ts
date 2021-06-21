@@ -30,6 +30,8 @@ import { NewReservationFormComponent } from './components/new-reservation-form/n
 import {CalendarModule} from "primeng/calendar";
 import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {MessagesModule} from "primeng/messages";
+import { ReservableEditFormComponent } from './components/reservable-edit-form/reservable-edit-form.component';
+import {ToggleButtonModule} from "primeng/togglebutton";
 
 @NgModule({
   declarations: [
@@ -45,27 +47,29 @@ import {MessagesModule} from "primeng/messages";
     UserReservationsTableComponent,
     CourtManagementComponent,
     NewReservationFormComponent,
+    ReservableEditFormComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        MenubarModule,
-        ButtonModule,
-        FullCalendarModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        DropdownModule,
-        BrowserAnimationsModule,
-        InputTextModule,
-        PasswordModule,
-        MessageModule,
-        TableModule,
-        RippleModule,
-        CalendarModule,
-        DynamicDialogModule,
-        MessagesModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MenubarModule,
+    ButtonModule,
+    FullCalendarModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    DropdownModule,
+    BrowserAnimationsModule,
+    InputTextModule,
+    PasswordModule,
+    MessageModule,
+    TableModule,
+    RippleModule,
+    CalendarModule,
+    DynamicDialogModule,
+    MessagesModule,
+    ToggleButtonModule
+  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthHtppInterceptorService, multi: true}
   ],

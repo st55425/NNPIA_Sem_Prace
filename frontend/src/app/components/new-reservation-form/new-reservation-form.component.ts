@@ -87,6 +87,6 @@ export class NewReservationFormComponent implements OnInit {
       timeTo: this.reservation.timeTo ?? new Date(),
       reservableId: this.reservation.reservableType ?? 0,
       userName: this.reservation.username ?? this.authService.usernameSubject.getValue()
-    }).pipe().subscribe(data => this.ref.close(data), error => this.messageService.add({severity:'error', summary: 'Rezervaci nelze vytvořit'}));
+    }).subscribe(data => this.ref.close(data), error => this.messageService.add({severity:'error', summary: 'Rezervaci nelze vytvořit'}));
   }
 }

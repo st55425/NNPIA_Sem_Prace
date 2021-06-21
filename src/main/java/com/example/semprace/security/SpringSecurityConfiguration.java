@@ -46,7 +46,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
         // We don't need CSRF for this example
         httpSecurity.csrf().disable().authorizeRequests()
                 // dont authenticate this particular request
-                .antMatchers("/authenticate", "/courts", "/reservabletypes/prices", "/courts/types/**", "/reservabletypes/**").permitAll()
+                .antMatchers("/authenticate", "/reservabletypes/prices", "/courts/types/**", "/reservabletypes/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/courts").permitAll()
                 .antMatchers("/reservations/anonym/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // all other requests need to be authenticated
@@ -55,6 +56,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/reservations/**").hasAnyAuthority("USER", "STAFF", "ADMIN")
                 .antMatchers("/users").hasAnyAuthority( "STAFF", "ADMIN")
                 .antMatchers("/reservabletypes/courts").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/courts").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/courts").hasAuthority("ADMIN")
                 .anyRequest().authenticated().and()
                 // make sure we use stateless session; session won't be used to
                 // store user's state.

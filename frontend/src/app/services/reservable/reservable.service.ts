@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Court} from "../../types";
+import {Court, Reservation} from "../../types";
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +21,15 @@ export class ReservableService {
 
   deleteCourt(id: number){
     this.http.delete(`${this.courtsUrl}/${id}`).subscribe();
+  }
+
+  createCourt(court: Court){
+    const headers = { 'content-type': 'application/json'};
+    return this.http.post<Court>(this.courtsUrl, JSON.stringify(court),{'headers':headers});
+  }
+
+  updateCourt(court: Court){
+    const headers = { 'content-type': 'application/json'};
+    return this.http.put<Court>(this.courtsUrl, JSON.stringify(court),{'headers':headers});
   }
 }

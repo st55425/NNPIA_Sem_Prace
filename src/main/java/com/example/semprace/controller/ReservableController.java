@@ -1,6 +1,7 @@
 package com.example.semprace.controller;
 
 import com.example.semprace.dto.CourtDto;
+import com.example.semprace.dto.ReservationDto;
 import com.example.semprace.entity.Reservable;
 import com.example.semprace.service.ReservableServiceImpl;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,16 @@ public class ReservableController {
         return courts.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    @PostMapping("/courts")
+    public CourtDto insertCourt(@RequestBody CourtDto court) throws Exception {
+        return convertToDto(service.saveReservable(convertToEntity(court), court.getReservableTypeId()));
+    }
+
+    @PutMapping("/courts")
+    public CourtDto UpdateCourt(@RequestBody CourtDto court) throws Exception {
+        return convertToDto(service.saveReservable(convertToEntity(court), court.getReservableTypeId()));
+    }
+
     @GetMapping("/courts/{id}")
     public CourtDto getCourtById(@PathVariable long id){
         return convertToDto(service.getCourtById(id));
@@ -47,14 +58,12 @@ public class ReservableController {
         return modelMapper.map(reservable, CourtDto.class);
     }
 
-    private Reservable convertToEntity(CourtDto dto) throws ParseException {
-        Reservable reservable = modelMapper.map(dto, Reservable.class);
-        if (reservable.getId() != null){
-            Reservable oldReservable = service.getCourtById(reservable.getId());
-            reservable.setReservableType(oldReservable.getReservableType());
-            reservable.setReservations(oldReservable.getReservations());
-            reservable.setAvailable(oldReservable.isAvailable());
-        }
-        return reservable;
+    private Reservable convertToEntity(CourtDto dto) {
+        //return modelMapper.map(dto, Reservable.class); z nejakyho duvodu nefunguje
+        var res = new Reservable();
+        res.setId(dto.getId());
+        res.setAvailable(dto.isAvailable());
+        res.setName(dto.getName());
+        return res;
     }
 }

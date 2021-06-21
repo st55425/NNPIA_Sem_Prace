@@ -1,7 +1,7 @@
 <h1>Přehled Sportovišť</h1>
 <div>
   <p-button class="margin" type="submit" >Nový typ sportoviště</p-button>
-  <p-button class="margin" type="submit" >Nové sportoviště</p-button>
+  <p-button class="margin" type="submit" (onClick)="editCourt()">Nové sportoviště</p-button>
   <p></p>
 </div>
 <p-table [columns]="cols" [value]="reservableTypes" dataKey="id">

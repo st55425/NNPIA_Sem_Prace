@@ -1,7 +1,8 @@
 export interface Court {
-  id: number,
-  name: string,
-  available: boolean
+  id?: number,
+  name?: string,
+  available?: boolean
+  reservableTypeId?: number
 }
 
 export interface AnonymizedReservation{

@@ -7,10 +7,11 @@ import lombok.*;
 @NoArgsConstructor
 public class CourtDto {
 
-    private Long Id;
+    private long Id;
 
     private String name;
 
     private boolean available;
 
+    private long reservableTypeId;
 }
