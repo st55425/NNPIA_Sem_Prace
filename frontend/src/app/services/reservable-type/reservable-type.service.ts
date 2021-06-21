@@ -1,6 +1,7 @@
 import {Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Court, ReservableType} from "../../types";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class ReservableTypeService {
   constructor(readonly http: HttpClient) { }
 
   getReservableTypes(){
-    return this.http.get<ReservableType[]>(`${this.reservableTypeUrl}`);
+    return this.http.get<ReservableType[]>(`${this.reservableTypeUrl}`).pipe(
+      map(types => types.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))
+    );
   }
 
   deleteReservableType(id: number){

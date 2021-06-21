@@ -50,8 +50,8 @@ public class ReservableController {
     }
 
     @DeleteMapping("/courts/{id}")
-    public void deleteCourtById(@PathVariable long id){
-        service.deleteById(id);
+    public CourtDto deleteCourtById(@PathVariable long id){
+        return convertToDto(service.deleteById(id));
     }
 
     private CourtDto convertToDto(Reservable reservable){

@@ -39,12 +39,13 @@ public class ReservationServiceImpl {
         return reservationRepository.findAllByUserAndTimeFromBeforeOrderByTimeFrom(user, ZonedDateTime.now());
     }
 
-    public Reservation fingById(long reservationId){
-        return reservationRepository.findById(reservationId).orElseThrow();
-    }
-
-    public void deleteReservation(long reservationId){
+    public Reservation deleteReservation(long reservationId) throws Exception {
+        var reservation = reservationRepository.findById(reservationId).orElseThrow();
+        if (reservation.getTimeFrom().compareTo(ZonedDateTime.now())<0){
+            throw new Exception("Proběhlou rezervaci nelze smazat");
+        }
         reservationRepository.deleteById(reservationId);
+        return reservation;
     }
 
     public Reservation saveReservation(Reservation reservation) throws Exception {

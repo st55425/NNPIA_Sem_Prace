@@ -26,7 +26,7 @@ public class ReservableTypeServiceImpl {
         return reservableTypeRepository.findAll();
     }
 
-    public void deleteById(long id){
+    public ReservableType deleteById(long id){
         var reservableType = reservableTypeRepository.findById(id).orElseThrow();
         for (var res: reservableType.getReservableList()) {
             reservableService.deleteById(res.getId());
@@ -35,6 +35,7 @@ public class ReservableTypeServiceImpl {
             reservablePriceRepository.deleteById(price.getId());
         }
         reservableTypeRepository.deleteById(id);
+        return reservableType;
     }
 
     public ReservableType saveReservableType(ReservableType reservableType) throws Exception {

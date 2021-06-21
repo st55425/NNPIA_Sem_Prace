@@ -74,8 +74,9 @@ export class NewReservationFormComponent implements OnInit {
         this.reservation.court = this.courts[0].id;
       }
     });
-
-    this.userService.getAllUsers().subscribe(users => this.users = users);
+    if (this.authService.roleSubject.getValue() === 'ADMIN'){
+      this.userService.getAllUsers().subscribe(users => this.users = users);
+    }
   }
 
   onSubmit() {

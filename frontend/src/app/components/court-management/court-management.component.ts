@@ -32,7 +32,9 @@ export class CourtManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.reservableTypeService.getReservableTypes().subscribe(data => this.reservableTypes = data);
+    this.reservableTypeService.getReservableTypes().subscribe(data => {
+      this.reservableTypes = data;
+    });
   }
 
   editReservableType(reservableType?: ReservableType) {
@@ -62,7 +64,7 @@ export class CourtManagementComponent implements OnInit {
     if (reservableType.id){
       this.reservableTypeService.deleteReservableType(reservableType.id);
     }
-    this.reservableTypes = this.reservableTypes.filter((p) => p.id !== reservableType.id);
+    this.reservableTypes = this.reservableTypes.filter(p => p.id !== reservableType.id);
   }
 
   editCourt(court?: Court) {
@@ -90,7 +92,16 @@ export class CourtManagementComponent implements OnInit {
 
   deleteCourt(court: Court) {
     if (court.id){
-      this.reservableService.deleteCourt(court.id);
+
+      this.reservableService.deleteCourt(court.id).subscribe(court => {
+        const resType = this.reservableTypes.find(p => p.id === court.reservableTypeId);
+        if (resType){
+          const courts = resType?.reservableList?.filter(p => p.id !== court.id);
+          resType.reservableList = courts;
+          this.reservableTypes = [...this.reservableTypes.filter(a => a.id != resType.id), resType];
+          this.reservableTypes.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        }
+      });
       this.reservableTypeService.getReservableTypes().subscribe(data => this.reservableTypes = data);
     }
   }

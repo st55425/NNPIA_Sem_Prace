@@ -39,8 +39,8 @@ public class ReservationController {
     }
 
     @DeleteMapping("/reservations/{id}")
-    public void deleteReservationById(@PathVariable long id){
-        reservationService.deleteReservation(id);
+    public ReservationDto deleteReservationById(@PathVariable long id) throws Exception {
+        return convertToDto(reservationService.deleteReservation(id));
     }
 
     @PostMapping("/reservations")

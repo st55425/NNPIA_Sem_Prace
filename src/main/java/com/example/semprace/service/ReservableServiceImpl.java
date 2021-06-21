@@ -37,10 +37,12 @@ public class ReservableServiceImpl {
         return reservableRepository.findAllByReservableType(type);
     }
 
-    public void deleteById(long id) {
+    public Reservable deleteById(long id) {
+        var reservable = reservableRepository.findById(id).orElseThrow();
         var reservations = reservationRepository.findAllByReservable(id);
         reservationRepository.deleteAll(reservations);
         reservableRepository.deleteById(id);
+        return reservable;
     }
 
     public Reservable saveReservable(Reservable reservable, Long reservableTypeId) throws Exception {

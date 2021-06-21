@@ -36,8 +36,8 @@ public class ReservableTypeController {
     }
 
     @DeleteMapping("/reservabletypes/{id}")
-    public void deleteReservableTypeById(@PathVariable long id){
-        reservableTypeService.deleteById(id);
+    public ReservableTypeDto deleteReservableTypeById(@PathVariable long id){
+        return convertToDto(reservableTypeService.deleteById(id));
     }
 
     private ReservableTypeDto convertToDto(ReservableType reservableType){

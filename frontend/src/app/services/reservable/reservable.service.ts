@@ -20,7 +20,7 @@ export class ReservableService {
   }
 
   deleteCourt(id: number){
-    this.http.delete(`${this.courtsUrl}/${id}`).subscribe();
+    return this.http.delete<Court>(`${this.courtsUrl}/${id}`);
   }
 
   createCourt(court: Court){

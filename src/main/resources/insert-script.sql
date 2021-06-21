@@ -14,7 +14,7 @@ VALUES (false, 'Test', true, '$2a$10$KzqnXd1Vk66jzDvqfaleHuGGWw5ZFkzw0s9H6V2irGx
 insert into reservable_type(is_court, name, open_from, open_to, default_price)
     values (true, 'tenisový kurt', '2021-06-14 08:00:00', '2021-06-14 22:00:00', 50);
 insert into reservable_type(is_court, name, open_from, open_to, default_price)
-    values (true, 'bedmintonový kurt', '2021-06-14 08:00:00', '2021-06-14 22:00:00', 50);
+    values (true, 'volejbalový kurt', '2021-06-14 08:00:00', '2021-06-14 22:00:00', 50);
 
 insert into reservable(available, name, reservable_type_id) VALUES (true, 'Centr kurt', 1);
 insert into reservable(available, name, reservable_type_id) VALUES (true, 'Kurt 1', 1);
