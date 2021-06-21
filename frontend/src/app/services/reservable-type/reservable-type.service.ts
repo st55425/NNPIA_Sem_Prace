@@ -1,6 +1,6 @@
 import {Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ReservableType} from "../../types";
+import {Court, ReservableType} from "../../types";
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +8,9 @@ import {ReservableType} from "../../types";
 export class ReservableTypeService {
 
   private reservableTypeUrl = "http://localhost:8080/reservabletypes";
+  private headers = { 'content-type': 'application/json'};
 
   constructor(readonly http: HttpClient) { }
-
-  getReservableTypesWithPrices(){
-    return this.http.get<ReservableType[]>(`${this.reservableTypeUrl}/prices`);
-  }
-
-  getReservableTypesWithCourts(){
-    return this.http.get<ReservableType[]>(`${this.reservableTypeUrl}/courts`);
-  }
 
   getReservableTypes(){
     return this.http.get<ReservableType[]>(`${this.reservableTypeUrl}`);
@@ -25,5 +18,13 @@ export class ReservableTypeService {
 
   deleteReservableType(id: number){
     this.http.delete(`${this.reservableTypeUrl}/${id}`).subscribe();
+  }
+
+  createReservableType(reservableType: ReservableType){
+    return this.http.post<ReservableType>(this.reservableTypeUrl, JSON.stringify(reservableType),{'headers':this.headers});
+  }
+
+  updateReservableType(reservableType: ReservableType){
+    return this.http.put<ReservableType>(this.reservableTypeUrl, JSON.stringify(reservableType),{'headers':this.headers});
   }
 }

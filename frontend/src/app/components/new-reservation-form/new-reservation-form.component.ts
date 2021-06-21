@@ -54,7 +54,7 @@ export class NewReservationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.reservableTypeService.getReservableTypesWithCourts().subscribe(types => {
+    this.reservableTypeService.getReservableTypes().subscribe(types => {
       this.types = types;
       if (this.court){
         this.reservation.court = this.court.id;

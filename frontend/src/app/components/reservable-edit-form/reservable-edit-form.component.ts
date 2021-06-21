@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
-import {MessageService} from "primeng/api";
 import {Court, ReservableType} from "../../types";
 import {ReservableTypeService} from "../../services/reservable-type/reservable-type.service";
 import {ReservableService} from "../../services/reservable/reservable.service";
@@ -28,7 +27,7 @@ export class ReservableEditFormComponent implements OnInit {
       this.new = true;
     }
 
-    this.reservableTypeService.getReservableTypesWithCourts().subscribe(types => {
+    this.reservableTypeService.getReservableTypes().subscribe(types => {
       this.types = types;
       if (!this.court.reservableTypeId){
         this.court.reservableTypeId = types[0].id;

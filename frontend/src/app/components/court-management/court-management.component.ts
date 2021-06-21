@@ -5,6 +5,7 @@ import {ReservableService} from "../../services/reservable/reservable.service";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {NewReservationFormComponent} from "../new-reservation-form/new-reservation-form.component";
 import {ReservableEditFormComponent} from "../reservable-edit-form/reservable-edit-form.component";
+import {ReservableTypeEditFormComponent} from "../reservable-type-edit-form/reservable-type-edit-form.component";
 
 @Component({
   selector: 'app-court-management',
@@ -31,15 +32,36 @@ export class CourtManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.reservableTypeService.getReservableTypesWithCourts().subscribe(data => this.reservableTypes = data);
+    this.reservableTypeService.getReservableTypes().subscribe(data => this.reservableTypes = data);
   }
 
-  editReservableType(reservableType: ReservableType) {
+  editReservableType(reservableType?: ReservableType) {
+    let config = {
+      header: '',
+      width: '70%',
+      contentStyle: {"height": "800px", "overflow": "auto"},
+      data: {}
+    };
 
+    if (reservableType){
+      config.header = 'Úprava typu sportoviště';
+      config.data = {reservableType: reservableType}
+    } else {
+      config.header = "Nový typ sportoviště"
+    }
+    const ref = this.dialogService.open(ReservableTypeEditFormComponent, config)
+
+    ref.onClose.subscribe((court: Court) =>{
+      if (court){
+        this.reservableTypeService.getReservableTypes().subscribe(data => this.reservableTypes = data);
+      }
+    });
   }
 
   deleteReservableType(reservableType: ReservableType) {
-    this.reservableTypeService.deleteReservableType(reservableType.id);
+    if (reservableType.id){
+      this.reservableTypeService.deleteReservableType(reservableType.id);
+    }
     this.reservableTypes = this.reservableTypes.filter((p) => p.id !== reservableType.id);
   }
 
@@ -61,7 +83,7 @@ export class CourtManagementComponent implements OnInit {
 
     ref.onClose.subscribe((court: Court) =>{
         if (court){
-          this.reservableTypeService.getReservableTypesWithCourts().subscribe(data => this.reservableTypes = data);
+          this.reservableTypeService.getReservableTypes().subscribe(data => this.reservableTypes = data);
         }
     });
   }
@@ -69,7 +91,7 @@ export class CourtManagementComponent implements OnInit {
   deleteCourt(court: Court) {
     if (court.id){
       this.reservableService.deleteCourt(court.id);
-      this.reservableTypeService.getReservableTypesWithCourts().subscribe(data => this.reservableTypes = data);
+      this.reservableTypeService.getReservableTypes().subscribe(data => this.reservableTypes = data);
     }
   }
 }

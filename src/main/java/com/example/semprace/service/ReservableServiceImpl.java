@@ -4,6 +4,7 @@ import com.example.semprace.dto.CourtDto;
 import com.example.semprace.entity.Reservable;
 import com.example.semprace.repository.ReservableRepository;
 import com.example.semprace.repository.ReservableTypeRepository;
+import com.example.semprace.repository.ReservationRepository;
 import lombok.AllArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 public class ReservableServiceImpl {
 
     private final ReservableRepository reservableRepository;
+
+    private final ReservationRepository reservationRepository;
 
     private final ReservableTypeRepository reservableTypeRepository;
 
@@ -35,11 +38,13 @@ public class ReservableServiceImpl {
     }
 
     public void deleteById(long id) {
+        var reservations = reservationRepository.findAllByReservable(id);
+        reservationRepository.deleteAll(reservations);
         reservableRepository.deleteById(id);
     }
 
-    public Reservable saveReservable(Reservable reservable, Long reservableId) throws Exception {
-        var resType = reservableTypeRepository.findById(reservableId).orElseThrow();
+    public Reservable saveReservable(Reservable reservable, Long reservableTypeId) throws Exception {
+        var resType = reservableTypeRepository.findById(reservableTypeId).orElseThrow();
         if (reservable.getName().length() > 0) {
             reservable.setReservableType(resType);
             return reservableRepository.saveAndFlush(reservable);

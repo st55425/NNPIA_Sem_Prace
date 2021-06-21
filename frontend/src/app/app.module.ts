@@ -32,6 +32,7 @@ import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {MessagesModule} from "primeng/messages";
 import { ReservableEditFormComponent } from './components/reservable-edit-form/reservable-edit-form.component';
 import {ToggleButtonModule} from "primeng/togglebutton";
+import { ReservableTypeEditFormComponent } from './components/reservable-type-edit-form/reservable-type-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {ToggleButtonModule} from "primeng/togglebutton";
     CourtManagementComponent,
     NewReservationFormComponent,
     ReservableEditFormComponent,
+    ReservableTypeEditFormComponent,
   ],
   imports: [
     BrowserModule,

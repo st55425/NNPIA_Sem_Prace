@@ -15,9 +15,9 @@
                 [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
       </td>
       <td>{{reservableType.name}}</td>
-      <td>{{reservableType.openFrom}}</td>
-      <td>{{reservableType.openTo}}</td>
-      <td></td>
+      <td>{{reservableType.openFrom | date: 'H:mm'}}</td>
+      <td>{{reservableType.openTo | date: 'H:mm'}}</td>
+      <td>{{reservableType.defaultPrice}} Kč</td>
     </tr>
   </ng-template>
   <ng-template pTemplate="rowexpansion" let-reservableType>
@@ -37,14 +37,17 @@
             </ng-template>
             <ng-template pTemplate="body" let-price>
               <tr>
-                <td *ngIf="price.weekDays">
+                <td *ngIf="price.weekDays && price.weekendsAndHolidays">
+                  Každý den
+                </td>
+                <td *ngIf="price.weekDays && !price.weekendsAndHolidays">
                  Všední dny
                 </td>
-                <td *ngIf="price.weekendsAndHolidays">
+                <td *ngIf="!price.weekDays && price.weekendsAndHolidays">
                   Víkendy a svátky
                 </td>
-                <td>{{price.timeFrom}}</td>
-                <td>{{price.timeTo}}</td>
+                <td>{{price.timeFrom | date: 'H:mm'}}</td>
+                <td>{{price.timeTo | date: 'H:mm'}}</td>
                 <td>{{price.price }} Kč</td>
               </tr>
             </ng-template>

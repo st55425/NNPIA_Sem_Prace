@@ -29,10 +29,11 @@ export interface ReservablePrice{
 }
 
 export interface ReservableType{
-  id: number,
+  id?: number,
   name: string,
   openFrom: Date,
   openTo: Date,
+  defaultPrice?: number
   prices?: ReservablePrice[]
   reservableList?: Court[]
 }

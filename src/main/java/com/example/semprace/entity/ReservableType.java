@@ -3,6 +3,7 @@ package com.example.semprace.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -26,9 +27,12 @@ public class ReservableType {
     @Column(nullable = false)
     private ZonedDateTime openTo;
 
-    @OneToMany(mappedBy = "reservableType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Column(nullable = false)
+    private BigDecimal defaultPrice;
+
+    @OneToMany(mappedBy = "reservableType", fetch = FetchType.LAZY)
     private List<Reservable> reservableList;
 
-    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
     private List<ReservablePrice> prices;
 }

@@ -14,19 +14,18 @@ export class PricelistComponent implements OnInit {
 
   cols: any[];
 
-  constructor(private readonly reservableTypeService: ReservableTypeService,
-              private readonly authenticationService: AuthenticationService) {
+  constructor(private readonly reservableTypeService: ReservableTypeService) {
     this.cols = [
       {field: 'expand', header: ''},
       { field: 'name', header: 'Typ Sportoviště'},
       { field: 'openFrom', header: 'Otevřeno od' },
       { field: 'openTo', header: 'Otevřeno do' },
-      { field: 'buttons', header: '' },
+      { field: 'price', header: 'Základní cena' },
     ];
   }
 
   ngOnInit(): void {
-    this.reservableTypeService.getReservableTypesWithPrices().subscribe(data => this.reservableTypes = data);
+    this.reservableTypeService.getReservableTypes().subscribe(data => this.reservableTypes = data);
   }
 
 }

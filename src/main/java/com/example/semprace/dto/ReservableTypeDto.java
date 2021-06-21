@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,4 +20,10 @@ public class ReservableTypeDto {
     private ZonedDateTime openFrom;
 
     private ZonedDateTime openTo;
+
+    private List<ReservablePriceDto> prices;
+
+    private List<CourtDto> reservableList;
+
+    private BigDecimal defaultPrice;
 }
