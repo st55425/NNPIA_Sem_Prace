@@ -6,6 +6,10 @@ import com.example.semprace.entity.Reservation;
 import com.example.semprace.service.ReservationServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,14 +30,16 @@ public class ReservationController {
                 map(this::convertToDtoAnonymized).collect(Collectors.toList());
     }
 
+    @PreAuthorize("#username == authentication.principal.username || hasAnyAuthority('STAFF', 'ADMIN')")
     @GetMapping("/reservations/future/{username}")
     public List<ReservationAnonymizedDto> getUserFutureReservations(@PathVariable String username){
         return reservationService.findFutureReservationsByUser(username).stream().
                 map(this::convertToDtoAnonymized).collect(Collectors.toList());
     }
 
+    @PreAuthorize("#username == authentication.principal.username || hasAnyAuthority('STAFF', 'ADMIN')")
     @GetMapping("/reservations/past/{username}")
-    public List<ReservationAnonymizedDto> getUserPastReservations(@PathVariable String username){
+    public List<ReservationAnonymizedDto> getUserPastReservations(@PathVariable("username") String username){
         return reservationService.findPastReservationsByUser(username).stream().
                 map(this::convertToDtoAnonymized).collect(Collectors.toList());
     }

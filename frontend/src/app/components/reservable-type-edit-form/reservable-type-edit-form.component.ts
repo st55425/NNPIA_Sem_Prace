@@ -69,7 +69,6 @@ export class ReservableTypeEditFormComponent implements OnInit {
         }
       ))
     }
-
   }
 
   onSubmit() {

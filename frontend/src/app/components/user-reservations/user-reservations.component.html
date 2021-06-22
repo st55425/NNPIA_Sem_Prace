@@ -1,3 +1,8 @@
+<div class="p-field" *ngIf="canChangeUserAsync | async">
+  <label for="username">Uživatel: </label>
+  <p-dropdown id="username" [options]="users" optionLabel="username" optionValue="username"
+              [formControl]="usernameCtrl" name="username"></p-dropdown>
+</div>
 <h1>Plánované rezervace:</h1>
 <app-user-reservations-table [anonymizedReservations]="futureReservations"
                              [deletable]="true"></app-user-reservations-table>

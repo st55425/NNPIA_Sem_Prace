@@ -26,19 +26,21 @@ export class MenuComponent implements OnInit {
       }
       else if (role === 'USER'){
         this.items = [...this.items,
-          {label: 'Logout', routerLink: "/logout"},
-          {label: 'Moje rezervace', routerLink: '/mojerezervace'},
+          {label: 'Moje rezervace', routerLink: '/uzivatelrezervace'},
+          {label: 'Logout', routerLink: "/logout"}
         ];
       }
       else if (role === 'STAFF'){
         this.items = [...this.items,
+          {label: 'Rezervace uživatelů', routerLink: '/uzivatelrezervace'},
           {label: 'Logout', routerLink: "/logout"},
         ];
       }
       else {
         this.items = [...this.items,
-          {label: 'Logout', routerLink: "/logout"},
           {label: 'Přehled sportovišť', routerLink: '/sportoviste'},
+          {label: 'Rezervace uživatelů', routerLink: '/uzivatelrezervace'},
+          {label: 'Logout', routerLink: "/logout"}
         ];
       }
     })

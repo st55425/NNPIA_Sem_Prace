@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'cenik', component: PricelistComponent},
   {path: 'logout', component: LogoutComponent},
-  {path: 'mojerezervace', component: UserReservationsComponent, canActivate: [AuthGaurdService]},
+  {path: 'uzivatelrezervace', component: UserReservationsComponent, canActivate: [AuthGaurdService]},
   {path: 'sportoviste', component: CourtManagementComponent, canActivate: [AuthGaurdService]},
   {path: '',   component: ReservationComponent, pathMatch: 'full' },
   {path: '**', component: PageNotFoundComponent }

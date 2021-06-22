@@ -31,7 +31,7 @@ public class ReservableTypeController {
     }
 
     @PutMapping("/reservabletypes")
-    public ReservableTypeDto UpdateCourt(@RequestBody ReservableTypeDto reservableType) throws Exception {
+    public ReservableTypeDto updateCourt(@RequestBody ReservableTypeDto reservableType) throws Exception {
         return convertToDto(reservableTypeService.saveReservableType(convertToEntity(reservableType)));
     }
 

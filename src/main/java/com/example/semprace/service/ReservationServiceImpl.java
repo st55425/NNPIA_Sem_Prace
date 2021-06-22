@@ -7,6 +7,7 @@ import com.example.semprace.repository.ReservableRepository;
 import com.example.semprace.repository.ReservationRepository;
 import com.example.semprace.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,23 +26,23 @@ public class ReservationServiceImpl {
     private final ReservableRepository reservableRepository;
 
 
-    public List<Reservation> findAnonymizedDtoByCourt(long courtId){
+    public List<Reservation> findAnonymizedDtoByCourt(long courtId) {
         return reservationRepository.findAllByReservable(courtId);
     }
 
-    public List<Reservation> findFutureReservationsByUser(String username){
+    public List<Reservation> findFutureReservationsByUser(String username) {
         User user = userRepository.findByUsername(username);
         return reservationRepository.findAllByUserAndTimeFromAfterOrderByTimeFrom(user, ZonedDateTime.now());
     }
 
-    public List<Reservation> findPastReservationsByUser(String username){
+    public List<Reservation> findPastReservationsByUser(String username) {
         User user = userRepository.findByUsername(username);
         return reservationRepository.findAllByUserAndTimeFromBeforeOrderByTimeFrom(user, ZonedDateTime.now());
     }
 
     public Reservation deleteReservation(long reservationId) throws Exception {
         var reservation = reservationRepository.findById(reservationId).orElseThrow();
-        if (reservation.getTimeFrom().compareTo(ZonedDateTime.now())<0){
+        if (reservation.getTimeFrom().compareTo(ZonedDateTime.now()) < 0) {
             throw new Exception("Proběhlou rezervaci nelze smazat");
         }
         reservationRepository.deleteById(reservationId);
@@ -56,16 +57,16 @@ public class ReservationServiceImpl {
         userRepository.flush();
         reservation.setReservable(r);
         reservation.setUser(u);
-        if (!validateReservation(reservation)){
+        if (!validateReservation(reservation)) {
             throw new Exception("Data nejsou validní");
         }
         return reservationRepository.saveAndFlush(reservation);
     }
 
-    private boolean validateReservation(Reservation reservation){
+    private boolean validateReservation(Reservation reservation) {
         long resTimeDiff = reservation.getTimeFrom().compareTo(reservation.getTimeTo());
         long diffFromNow = reservation.getTimeFrom().compareTo(ZonedDateTime.now());
-        if (resTimeDiff >= 0 || diffFromNow < 0){
+        if (resTimeDiff >= 0 || diffFromNow < 0) {
             return false;
         }
         var reservations = reservationRepository.findAllByReservableAndTimeFromBetweenAndTimeToBetween(
