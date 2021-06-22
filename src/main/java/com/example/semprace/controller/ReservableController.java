@@ -1,15 +1,12 @@
 package com.example.semprace.controller;
 
 import com.example.semprace.dto.CourtDto;
-import com.example.semprace.dto.ReservationDto;
 import com.example.semprace.entity.Reservable;
-import com.example.semprace.service.ReservableServiceImpl;
+import com.example.semprace.service.ReservableService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +15,7 @@ import java.util.stream.Collectors;
 @CrossOrigin
 public class ReservableController {
 
-    private final ReservableServiceImpl service;
+    private final ReservableService service;
 
     private final ModelMapper modelMapper;
 

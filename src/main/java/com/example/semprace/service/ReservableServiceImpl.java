@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @AllArgsConstructor
-public class ReservableServiceImpl {
+public class ReservableServiceImpl implements ReservableService {
 
     private final ReservableRepository reservableRepository;
 
@@ -24,19 +24,23 @@ public class ReservableServiceImpl {
 
     private final ReservableTypeRepository reservableTypeRepository;
 
+    @Override
     public List<Reservable> getAllCourts() {
         return reservableRepository.findAllCourts();
     }
 
+    @Override
     public Reservable getCourtById(long id) {
         return reservableRepository.findById(id).orElseThrow();
     }
 
+    @Override
     public List<Reservable> getCourtsByType(long typeId) {
         var type = reservableTypeRepository.findById(typeId).orElseThrow();
         return reservableRepository.findAllByReservableType(type);
     }
 
+    @Override
     public Reservable deleteById(long id) {
         var reservable = reservableRepository.findById(id).orElseThrow();
         var reservations = reservationRepository.findAllByReservable(id);
@@ -45,6 +49,7 @@ public class ReservableServiceImpl {
         return reservable;
     }
 
+    @Override
     public Reservable saveReservable(Reservable reservable, Long reservableTypeId) throws Exception {
         var resType = reservableTypeRepository.findById(reservableTypeId).orElseThrow();
         if (reservable.getName().length() > 0) {

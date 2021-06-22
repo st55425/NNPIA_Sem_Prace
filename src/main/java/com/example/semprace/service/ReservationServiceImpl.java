@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 @Transactional
 @AllArgsConstructor
-public class ReservationServiceImpl {
+public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
 
@@ -28,20 +28,24 @@ public class ReservationServiceImpl {
     private final ReservableRepository reservableRepository;
 
 
+    @Override
     public List<Reservation> findAnonymizedDtoByCourt(long courtId) {
         return reservationRepository.findAllByReservable(courtId);
     }
 
+    @Override
     public Page<Reservation> findFutureReservationsByUser(String username, Pageable pageable) {
         User user = userRepository.findByUsername(username);
         return reservationRepository.findAllByUserAndTimeFromAfterOrderByTimeFrom(user, ZonedDateTime.now(), pageable);
     }
 
+    @Override
     public Page<Reservation> findPastReservationsByUser(String username, Pageable pageable) {
         User user = userRepository.findByUsername(username);
         return reservationRepository.findAllByUserAndTimeFromBeforeOrderByTimeFrom(user, ZonedDateTime.now(), pageable);
     }
 
+    @Override
     public Reservation deleteReservation(long reservationId) throws Exception {
         var reservation = reservationRepository.findById(reservationId).orElseThrow();
         if (reservation.getTimeFrom().compareTo(ZonedDateTime.now()) < 0) {
@@ -51,6 +55,7 @@ public class ReservationServiceImpl {
         return reservation;
     }
 
+    @Override
     public Reservation saveReservation(Reservation reservation) throws Exception {
         long reservableId = reservation.getReservable().getId();
         String username = reservation.getUser().getUsername();

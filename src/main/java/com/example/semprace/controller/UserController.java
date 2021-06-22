@@ -1,16 +1,12 @@
 package com.example.semprace.controller;
 
-import com.example.semprace.dto.ReservationAnonymizedDto;
-import com.example.semprace.dto.ReservationDto;
 import com.example.semprace.dto.UserDto;
-import com.example.semprace.entity.Reservation;
 import com.example.semprace.entity.User;
-import com.example.semprace.service.UserServiceImpl;
+import com.example.semprace.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,7 +17,7 @@ import java.util.stream.Collectors;
 @CrossOrigin
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     private final ModelMapper modelMapper;
 
