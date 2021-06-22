@@ -64,6 +64,7 @@ export class UserReservationsTableComponent implements OnInit {
     });
   }
 
+
   deleteReservation(reservation: AnonymizedReservation){
     this.anonymizedReservations = this.anonymizedReservations.filter((p) => p.id !== reservation.id);
     //TODO zobrazit
