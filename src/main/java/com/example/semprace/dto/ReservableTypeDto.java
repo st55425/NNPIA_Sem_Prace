@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -17,9 +18,9 @@ public class ReservableTypeDto {
 
     private String name;
 
-    private ZonedDateTime openFrom;
+    private Date openFrom;
 
-    private ZonedDateTime openTo;
+    private Date openTo;
 
     private List<ReservablePriceDto> prices;
 

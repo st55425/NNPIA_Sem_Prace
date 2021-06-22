@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -24,10 +25,14 @@ public class ReservablePrice {
     private Boolean weekendsAndHolidays;
 
     @Column(nullable = false)
-    private ZonedDateTime timeFrom;
+    @Basic
+    @Temporal(TemporalType.TIME)
+    private Date timeFrom;
 
     @Column(nullable = false)
-    private ZonedDateTime timeTo;
+    @Basic
+    @Temporal(TemporalType.TIME)
+    private Date timeTo;
 
     @Column(nullable = false)
     private BigDecimal price;

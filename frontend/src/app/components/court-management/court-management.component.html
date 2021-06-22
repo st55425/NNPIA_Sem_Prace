@@ -20,8 +20,8 @@
                 [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
       </td>
       <td>{{reservableType.name}}</td>
-      <td>{{reservableType.openFrom | date: 'H:mm'}}</td>
-      <td>{{reservableType.openTo | date: 'H:mm'}}</td>
+      <td>{{reservableType.openFrom}}</td>
+      <td>{{reservableType.openTo}}</td>
       <td>
         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editReservableType(reservableType)"></button>
         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteReservableType(reservableType)"></button>

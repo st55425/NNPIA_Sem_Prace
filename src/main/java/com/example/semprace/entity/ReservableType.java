@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,10 +23,14 @@ public class ReservableType {
     private boolean isCourt;
 
     @Column(nullable = false)
-    private ZonedDateTime openFrom;
+    @Basic
+    @Temporal(TemporalType.TIME)
+    private Date openFrom;
 
     @Column(nullable = false)
-    private ZonedDateTime openTo;
+    @Basic
+    @Temporal(TemporalType.TIME)
+    private Date openTo;
 
     @Column(nullable = false)
     private BigDecimal defaultPrice;

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -18,9 +19,9 @@ public class ReservablePriceDto {
 
     private Boolean weekendsAndHolidays;
 
-    private ZonedDateTime timeFrom;
+    private Date timeFrom;
 
-    private ZonedDateTime timeTo;
+    private Date timeTo;
 
     private BigDecimal price;
 }
