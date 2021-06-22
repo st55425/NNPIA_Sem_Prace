@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AnonymizedReservation} from "../../types";
+import {AnonymizedReservation, Page} from "../../types";
 import {ReservationService} from "../../services/reservation/reservation.service";
-import {MessageService} from "primeng/api";
+import {LazyLoadEvent, MessageService} from "primeng/api";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-user-reservations-table',
@@ -11,11 +12,37 @@ import {MessageService} from "primeng/api";
 })
 export class UserReservationsTableComponent implements OnInit {
 
-  @Input()
   anonymizedReservations!: AnonymizedReservation[];
+  totalRecords!: number;
 
   @Input()
   deletable?: boolean;
+
+  @Input()
+  rows!: number;
+
+  @Input()
+  rowsPerPageOptions!: number[];
+
+  private _username!: string;
+
+  @Input()
+  set username(value: string){
+    this._username = value;
+    if (this.dataLoader){
+      this.dataLoader(this.username,0, this.rows ?? 10).subscribe(data =>{
+        this.anonymizedReservations = data.content;
+        this.totalRecords = data.totalElements;
+      });
+    }
+  }
+
+  get username() {
+    return this._username;
+  }
+
+  @Input() dataLoader!: (username: string, page: number, size: number) => Observable<Page<AnonymizedReservation>>;
+
 
   cols!: any[];
 
@@ -31,6 +58,10 @@ export class UserReservationsTableComponent implements OnInit {
     if (this.deletable){
       this.cols = [...this.cols, { field: 'delete', header: 'Odstranit rezervaci'}]
     }
+    this.dataLoader(this.username,0, this.rows ?? 10).subscribe(data =>{
+      this.anonymizedReservations = data.content;
+      this.totalRecords = data.totalElements;
+    });
   }
 
   deleteReservation(reservation: AnonymizedReservation){
@@ -42,4 +73,12 @@ export class UserReservationsTableComponent implements OnInit {
     this.reservationService.deleteReservation(reservation.id);
   }
 
+  loadReservations(event: LazyLoadEvent) {
+    if (event.first !== undefined && event.rows){
+      this.dataLoader(this.username,event.first/ event.rows, event.rows).subscribe(data =>{
+        this.anonymizedReservations = data.content;
+        this.totalRecords = data.totalElements;
+      });
+    }
+  }
 }

@@ -6,6 +6,8 @@ import com.example.semprace.entity.Reservation;
 import com.example.semprace.service.ReservationServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -25,23 +27,27 @@ public class ReservationController {
     private final ModelMapper modelMapper;
 
     @GetMapping("/reservations/anonym/{courtId}")
-    public List<ReservationAnonymizedDto> getAnonymizedReservationByCourt(@PathVariable long courtId){
+    public List<ReservationAnonymizedDto> getAnonymizedReservationByCourt(@PathVariable long courtId) {
         return reservationService.findAnonymizedDtoByCourt(courtId).stream().
                 map(this::convertToDtoAnonymized).collect(Collectors.toList());
     }
 
     @PreAuthorize("#username == authentication.principal.username || hasAnyAuthority('STAFF', 'ADMIN')")
-    @GetMapping("/reservations/future/{username}")
-    public List<ReservationAnonymizedDto> getUserFutureReservations(@PathVariable String username){
-        return reservationService.findFutureReservationsByUser(username).stream().
-                map(this::convertToDtoAnonymized).collect(Collectors.toList());
+    @GetMapping(value = "/reservations/future/{username}", params = {"page", "size"})
+    public Page<ReservationAnonymizedDto> getUserFutureReservations(@PathVariable String username,
+                                                                    @RequestParam("page") int page,
+                                                                    @RequestParam("size") int size) {
+        return reservationService.findFutureReservationsByUser(username, PageRequest.of(page, size)).
+                map(this::convertToDtoAnonymized);
     }
 
     @PreAuthorize("#username == authentication.principal.username || hasAnyAuthority('STAFF', 'ADMIN')")
-    @GetMapping("/reservations/past/{username}")
-    public List<ReservationAnonymizedDto> getUserPastReservations(@PathVariable("username") String username){
-        return reservationService.findPastReservationsByUser(username).stream().
-                map(this::convertToDtoAnonymized).collect(Collectors.toList());
+    @GetMapping(value = "/reservations/past/{username}", params = {"page", "size"})
+    public Page<ReservationAnonymizedDto> getUserPastReservations(@PathVariable("username") String username,
+                                                                  @RequestParam("page") int page,
+                                                                  @RequestParam("size") int size) {
+        return reservationService.findPastReservationsByUser(username, PageRequest.of(page, size)).
+                map(this::convertToDtoAnonymized);
     }
 
     @DeleteMapping("/reservations/{id}")
@@ -54,11 +60,11 @@ public class ReservationController {
         return convertToDto(reservationService.saveReservation(convertToEntity(reservationDto)));
     }
 
-    private ReservationDto convertToDto(Reservation reservation){
+    private ReservationDto convertToDto(Reservation reservation) {
         return modelMapper.map(reservation, ReservationDto.class);
     }
 
-    private ReservationAnonymizedDto convertToDtoAnonymized(Reservation reservation){
+    private ReservationAnonymizedDto convertToDtoAnonymized(Reservation reservation) {
         return modelMapper.map(reservation, ReservationAnonymizedDto.class);
     }
 

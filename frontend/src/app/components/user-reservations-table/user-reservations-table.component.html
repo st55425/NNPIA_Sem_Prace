@@ -1,4 +1,5 @@
-<p-table [columns]="cols" [value]="anonymizedReservations">
+<p-table [columns]="cols" [value]="anonymizedReservations" [paginator]="true" [rows]="rows" [totalRecords]="totalRecords"
+         [rowsPerPageOptions]="rowsPerPageOptions" [lazy]="true" (onLazyLoad)="loadReservations($event)">
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns">

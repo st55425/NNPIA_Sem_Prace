@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {AnonymizedReservation, Reservation} from "../../types";
+import {AnonymizedReservation, Page, Reservation} from "../../types";
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,12 @@ export class ReservationService {
     return this.http.get<AnonymizedReservation[]>(`${this.reservationsUrl}/anonym/${id}`);
   }
 
-  getFutureUserReservations(username: string){
-    return this.http.get<AnonymizedReservation[]>(`${this.reservationsUrl}/future/${username}`);
+  getFutureUserReservations(username: string, page: number, size: number){
+    return this.http.get<Page<AnonymizedReservation>>(`${this.reservationsUrl}/future/${username}?page=${page}&size=${size}`);
   }
 
-  getPastUserReservations(username: string){
-    return this.http.get<AnonymizedReservation[]>(`${this.reservationsUrl}/past/${username}`);
+  getPastUserReservations(username: string, page: number, size: number){
+    return this.http.get<Page<AnonymizedReservation>>(`${this.reservationsUrl}/past/${username}?page=${page}&size=${size}`);
   }
 
   deleteReservation(id: number){

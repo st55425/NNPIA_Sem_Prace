@@ -1,9 +1,10 @@
 package com.example.semprace.repository;
 
-import com.example.semprace.dto.ReservationAnonymizedDto;
 import com.example.semprace.entity.Reservable;
 import com.example.semprace.entity.Reservation;
 import com.example.semprace.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -12,9 +13,9 @@ import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
-    List<Reservation> findAllByUserAndTimeFromAfterOrderByTimeFrom(User user, ZonedDateTime timeFrom);
+    Page<Reservation> findAllByUserAndTimeFromAfterOrderByTimeFrom(User user, ZonedDateTime timeFrom, Pageable pageable);
 
-    List<Reservation> findAllByUserAndTimeFromBeforeOrderByTimeFrom(User user, ZonedDateTime timeFrom);
+    Page<Reservation> findAllByUserAndTimeFromBeforeOrderByTimeFrom(User user, ZonedDateTime timeFrom, Pageable pageable);
 
     @Query("""
     select res

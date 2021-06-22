@@ -19,28 +19,36 @@ export class UserReservationsComponent implements OnInit, OnDestroy {
 
   canChangeUserAsync = this.authService.roleAsync.pipe(map(role => role === "ADMIN"));
 
-  futureReservations!: AnonymizedReservation[];
+  rows = [2, 10, 25, 50];
 
-  pastReservations!: AnonymizedReservation[];
+  futureReservationsFunction = (username: string, page: number, size: number) =>{
+    return this.reservationService.getFutureUserReservations(username, page, size);
+  }
+  pastReservationsFunction = (username: string, page: number, size: number) =>{
+    return this.reservationService.getPastUserReservations(username, page, size);
+  }
 
   users!: User[];
+  username!: string;
 
-  constructor(private readonly reservationService: ReservationService,
+  constructor(readonly reservationService: ReservationService,
               private readonly authService: AuthenticationService,
               private readonly userService: UserService) {
   }
 
   ngOnInit(): void {
     this.authService.usernameAsync.subscribe(username => {
-      this.usernameCtrl.valueChanges.subscribe(username => {
-        this.reservationService.getFutureUserReservations(username).subscribe(data => this.futureReservations = data, error => {});
-        this.reservationService.getPastUserReservations(username).subscribe(data => this.pastReservations = data, error => {});
-      })
       this.usernameCtrl.setValue(username);
+      this.username = username;
     });
     if (this.authService.roleSubject.getValue() === 'ADMIN'){
       this.userService.getAllUsers().subscribe(users => this.users = users);
     }
+    this.usernameCtrl.valueChanges.subscribe(username => {
+      if (username){
+        this.username = username;
+      }
+    })
   }
 
   ngOnDestroy() {

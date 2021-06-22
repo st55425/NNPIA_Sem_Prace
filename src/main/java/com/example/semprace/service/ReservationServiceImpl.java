@@ -7,7 +7,9 @@ import com.example.semprace.repository.ReservableRepository;
 import com.example.semprace.repository.ReservationRepository;
 import com.example.semprace.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -30,14 +32,14 @@ public class ReservationServiceImpl {
         return reservationRepository.findAllByReservable(courtId);
     }
 
-    public List<Reservation> findFutureReservationsByUser(String username) {
+    public Page<Reservation> findFutureReservationsByUser(String username, Pageable pageable) {
         User user = userRepository.findByUsername(username);
-        return reservationRepository.findAllByUserAndTimeFromAfterOrderByTimeFrom(user, ZonedDateTime.now());
+        return reservationRepository.findAllByUserAndTimeFromAfterOrderByTimeFrom(user, ZonedDateTime.now(), pageable);
     }
 
-    public List<Reservation> findPastReservationsByUser(String username) {
+    public Page<Reservation> findPastReservationsByUser(String username, Pageable pageable) {
         User user = userRepository.findByUsername(username);
-        return reservationRepository.findAllByUserAndTimeFromBeforeOrderByTimeFrom(user, ZonedDateTime.now());
+        return reservationRepository.findAllByUserAndTimeFromBeforeOrderByTimeFrom(user, ZonedDateTime.now(), pageable);
     }
 
     public Reservation deleteReservation(long reservationId) throws Exception {

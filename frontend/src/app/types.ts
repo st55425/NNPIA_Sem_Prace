@@ -61,3 +61,8 @@ export interface User{
   firstName: string,
   surname: string
 }
+
+export interface Page<T> {
+  totalElements: number,
+  content: T[]
+}
