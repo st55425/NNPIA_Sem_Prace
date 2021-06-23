@@ -24,6 +24,7 @@
     "@fullcalendar/daygrid": "^4.1.0",
     "@fullcalendar/interaction": "^4.1.0",
     "@fullcalendar/timegrid": "^4.1.0",
+    "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "jwt-decode": "^3.1.2",
     "primeflex": "^2.0.0",
