@@ -13,8 +13,10 @@ import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.lang.reflect.Field;
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 @Component
@@ -68,9 +70,15 @@ public class Creator {
                             propValue = fieldClass.getEnumConstants()[0];
                         }
                         else {
-                            if (LocalDateTime.class.equals(fieldClass)) {
-                                propValue = LocalDateTime.now();
-                            } else if (Long.class.equals(fieldClass)) {
+                            if (ZonedDateTime.class.equals(fieldClass)) {
+                                propValue = ZonedDateTime.now();
+                            } else if (Date.class.equals(fieldClass)) {
+                                String sDate="31/12/1998 20:00:00";
+                                propValue = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(sDate);
+                            }else if (BigDecimal.class.equals(fieldClass)) {
+                                propValue = new BigDecimal(1);
+                            }
+                            else if (Long.class.equals(fieldClass)) {
                                 propValue = 1L;
                             } else if (Boolean.class.equals(fieldClass)) {
                                 propValue = true;
