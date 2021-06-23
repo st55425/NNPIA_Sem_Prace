@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
+@RequestMapping(value = "/api")
 public class JwtAuthenticationController {
 
     private final AuthenticationManager authenticationManager;

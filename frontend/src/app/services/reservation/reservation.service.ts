@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AnonymizedReservation, Page, Reservation} from "../../types";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
 
-  private reservationsUrl = "http://localhost:8080/reservations";
+  private reservationsUrl = `${environment.apiUrl}/reservations`;
 
   constructor(readonly http: HttpClient) { }
 

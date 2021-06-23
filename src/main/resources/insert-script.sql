@@ -1,15 +1,12 @@
 
 insert into user(blocked, first_name, is_club_member, password, role, surname, username)
-VALUES (false, 'Test', true, '$2a$10$wJV47DU.74BMjCox1u45s.6kFrwnnCVMzqOeZ9dXLuoOsMxthbEBa
-', 'USER', 'User', 'user');
+VALUES (false, 'Test', true, '$2a$10$wJV47DU.74BMjCox1u45s.6kFrwnnCVMzqOeZ9dXLuoOsMxthbEBa', 'USER', 'User', 'user');
 
 insert into user(blocked, first_name, is_club_member, password, role, surname, username)
-VALUES (false, 'Test', true, '$2a$10$TWYzj9itHzj4KPFXg6LJ4.ykAtsFwT56k0wodOkRIgHSNwvmKvuAC
-', 'STAFF', 'Staff', 'staff');
+VALUES (false, 'Test', true, '$2a$10$TWYzj9itHzj4KPFXg6LJ4.ykAtsFwT56k0wodOkRIgHSNwvmKvuAC', 'STAFF', 'Staff', 'staff');
 
 insert into user(blocked, first_name, is_club_member, password, role, surname, username)
-VALUES (false, 'Test', true, '$2a$10$KzqnXd1Vk66jzDvqfaleHuGGWw5ZFkzw0s9H6V2irGx7kDQVtahyS
-', 'ADMIN', 'Admin', 'admin');
+VALUES (false, 'Test', true, '$2a$10$KzqnXd1Vk66jzDvqfaleHuGGWw5ZFkzw0s9H6V2irGx7kDQVtahyS', 'ADMIN', 'Admin', 'admin');
 
 insert into reservable_type(is_court, name, open_from, open_to, default_price)
     values (true, 'tenisový kurt', '08:00:00', '22:00:00', 50);

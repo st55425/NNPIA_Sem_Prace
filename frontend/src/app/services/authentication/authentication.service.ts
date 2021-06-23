@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {filter, map, tap} from 'rxjs/operators';
 import jwt_decode from "jwt-decode";
 import {BehaviorSubject, fromEvent, of} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 export interface JwtResponse{
   jwttoken: string
@@ -26,7 +27,7 @@ export class AuthenticationService {
   }
 
   authenticate(username: string, password: string) {
-    return this.httpClient.post<JwtResponse>('http://localhost:8080/authenticate',{username,password}).pipe(
+    return this.httpClient.post<JwtResponse>(`${environment.apiUrl}/authenticate`,{username,password}).pipe(
       map(
         userData => {
           try{

@@ -2,13 +2,14 @@ import {Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Court, ReservableType} from "../../types";
 import {map} from "rxjs/operators";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservableTypeService {
 
-  private reservableTypeUrl = "http://localhost:8080/reservabletypes";
+  private reservableTypeUrl = `${environment.apiUrl}/reservabletypes`;
   private headers = { 'content-type': 'application/json'};
 
   constructor(readonly http: HttpClient) { }

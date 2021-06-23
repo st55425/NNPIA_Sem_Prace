@@ -13,40 +13,41 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @CrossOrigin
+@RequestMapping(value = "/api/courts")
 public class ReservableController {
 
     private final ReservableService service;
 
     private final ModelMapper modelMapper;
 
-    @GetMapping("/courts")
+    @GetMapping()
     public List<CourtDto> getCourts(){
         List<Reservable> courts = service.getAllCourts();
         return courts.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    @PostMapping("/courts")
+    @PostMapping()
     public CourtDto insertCourt(@RequestBody CourtDto court) throws Exception {
         return convertToDto(service.saveReservable(convertToEntity(court), court.getReservableTypeId()));
     }
 
-    @PutMapping("/courts")
+    @PutMapping()
     public CourtDto UpdateCourt(@RequestBody CourtDto court) throws Exception {
         return convertToDto(service.saveReservable(convertToEntity(court), court.getReservableTypeId()));
     }
 
-    @GetMapping("/courts/{id}")
+    @GetMapping("/{id}")
     public CourtDto getCourtById(@PathVariable long id){
         return convertToDto(service.getCourtById(id));
     }
 
-    @GetMapping("/courts/types/{typeId}")
+    @GetMapping("/types/{typeId}")
     public List<CourtDto>getCourtsByType(@PathVariable long typeId){
         List<Reservable> courts = service.getCourtsByType(typeId);
         return courts.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    @DeleteMapping("/courts/{id}")
+    @DeleteMapping("/{id}")
     public CourtDto deleteCourtById(@PathVariable long id){
         return convertToDto(service.deleteById(id));
     }

@@ -17,20 +17,21 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @CrossOrigin
+@RequestMapping(value = "/api/reservations")
 public class ReservationController {
 
     private final ReservationService reservationService;
 
     private final ModelMapper modelMapper;
 
-    @GetMapping("/reservations/anonym/{courtId}")
+    @GetMapping("/anonym/{courtId}")
     public List<ReservationAnonymizedDto> getAnonymizedReservationByCourt(@PathVariable long courtId) {
         return reservationService.findAnonymizedDtoByCourt(courtId).stream().
                 map(this::convertToDtoAnonymized).collect(Collectors.toList());
     }
 
     @PreAuthorize("#username == authentication.principal.username || hasAnyAuthority('STAFF', 'ADMIN')")
-    @GetMapping(value = "/reservations/future/{username}", params = {"page", "size"})
+    @GetMapping(value = "/future/{username}", params = {"page", "size"})
     public Page<ReservationAnonymizedDto> getUserFutureReservations(@PathVariable String username,
                                                                     @RequestParam("page") int page,
                                                                     @RequestParam("size") int size) {
@@ -39,7 +40,7 @@ public class ReservationController {
     }
 
     @PreAuthorize("#username == authentication.principal.username || hasAnyAuthority('STAFF', 'ADMIN')")
-    @GetMapping(value = "/reservations/past/{username}", params = {"page", "size"})
+    @GetMapping(value = "/past/{username}", params = {"page", "size"})
     public Page<ReservationAnonymizedDto> getUserPastReservations(@PathVariable("username") String username,
                                                                   @RequestParam("page") int page,
                                                                   @RequestParam("size") int size) {
@@ -47,12 +48,12 @@ public class ReservationController {
                 map(this::convertToDtoAnonymized);
     }
 
-    @DeleteMapping("/reservations/{id}")
+    @DeleteMapping("/{id}")
     public ReservationDto deleteReservationById(@PathVariable long id) throws Exception {
         return convertToDto(reservationService.deleteReservation(id));
     }
 
-    @PostMapping("/reservations")
+    @PostMapping()
     public ReservationDto createReservation(@RequestBody ReservationDto reservationDto) throws Exception {
         return convertToDto(reservationService.saveReservation(convertToEntity(reservationDto)));
     }

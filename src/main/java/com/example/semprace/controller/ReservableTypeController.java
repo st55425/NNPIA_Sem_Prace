@@ -13,28 +13,29 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @CrossOrigin
+@RequestMapping(value = "/api/reservabletypes")
 public class ReservableTypeController {
 
     private final ReservableTypeService reservableTypeService;
 
     private final ModelMapper modelMapper;
-    @GetMapping("/reservabletypes")
+    @GetMapping()
     public List<ReservableTypeDto> getAllReservableTypes(){
         return reservableTypeService.findAllTypes().stream().
                 map(this::convertToDto).collect(Collectors.toList());
     }
 
-    @PostMapping("/reservabletypes")
+    @PostMapping()
     public ReservableTypeDto insertCourt(@RequestBody ReservableTypeDto reservableType) throws Exception {
         return convertToDto(reservableTypeService.saveReservableType(convertToEntity(reservableType)));
     }
 
-    @PutMapping("/reservabletypes")
+    @PutMapping()
     public ReservableTypeDto updateCourt(@RequestBody ReservableTypeDto reservableType) throws Exception {
         return convertToDto(reservableTypeService.saveReservableType(convertToEntity(reservableType)));
     }
 
-    @DeleteMapping("/reservabletypes/{id}")
+    @DeleteMapping("/{id}")
     public ReservableTypeDto deleteReservableTypeById(@PathVariable long id){
         return convertToDto(reservableTypeService.deleteById(id));
     }
