@@ -48,21 +48,21 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter{
         // We don't need CSRF for this example
         httpSecurity.csrf().disable().authorizeRequests()
                 // dont authenticate this particular request
-                .antMatchers("/authenticate", "/courts/types/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/courts").permitAll()
-                .antMatchers(HttpMethod.GET, "/reservabletypes").permitAll()
-                .antMatchers("/reservations/anonym/**").permitAll()
+                .antMatchers("/api/authenticate", "/api/courts/types/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/courts").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/reservabletypes").permitAll()
+                .antMatchers("/api/reservations/anonym/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // all other requests need to be authenticated
                 // use .hasAuthority("STH")
-                .antMatchers("/reservations").hasAnyAuthority("USER", "STAFF", "ADMIN")
-                .antMatchers("/reservations/**").hasAnyAuthority("USER", "STAFF", "ADMIN")
-                .antMatchers("/users").hasAnyAuthority( "STAFF", "ADMIN")
-                .antMatchers(HttpMethod.POST,"/reservabletypes").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.PUT,"/reservabletypes").hasAuthority("ADMIN")
-                .antMatchers("/reservabletypes/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.POST, "/courts").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/courts").hasAuthority("ADMIN")
+                .antMatchers("/api/reservations").hasAnyAuthority("USER", "STAFF", "ADMIN")
+                .antMatchers("/api/reservations/**").hasAnyAuthority("USER", "STAFF", "ADMIN")
+                .antMatchers("/api/users").hasAnyAuthority( "STAFF", "ADMIN")
+                .antMatchers(HttpMethod.POST,"/api/reservabletypes").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT,"/api/reservabletypes").hasAuthority("ADMIN")
+                .antMatchers("/api/reservabletypes/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/courts").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/courts").hasAuthority("ADMIN")
                 .anyRequest().authenticated().and()
                 // make sure we use stateless session; session won't be used to
                 // store user's state.
